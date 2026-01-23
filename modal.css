@@ -1,0 +1,950 @@
+/* ============================================================
+ * 克劳德 - AI卡牌叙事冒险
+ * 模态框样式 (Modal Components)
+ * ============================================================ */
+
+/* ============================================================
+ * 模态框遮罩
+ * ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(3px);
+}
+
+.overlay.visible,
+.overlay.active {
+  display: flex;
+}
+
+/* ============================================================
+ * 基础模态框
+ * ============================================================ */
+
+.modal {
+  max-width: 500px;
+  width: 90%;
+  padding: 40px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal h2 {
+  margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 2rem;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  background: var(--gold-accent);
+  color: #fff;
+  border-color: var(--gold-accent);
+}
+
+/* ============================================================
+ * 分支选择模态框
+ * ============================================================ */
+
+#branching-options-overlay {
+  align-items: flex-end;
+  padding-bottom: 80px;
+}
+
+#branching-options-overlay .modal {
+  max-width: 600px;
+  width: 90%;
+  max-height: 280px;
+  display: flex;
+  flex-direction: column;
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+.branching-options-modal {
+  background: linear-gradient(135deg, rgba(244, 228, 188, 0.98) 0%, rgba(232, 213, 163, 0.95) 100%);
+  padding: 25px;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--gold-accent);
+  box-shadow: var(--shadow-strong);
+}
+
+.branching-options-modal h4 {
+  font-family: 'Cinzel', 'Noto Serif SC', serif;
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--ink-primary);
+}
+
+.branching-options-modal .modal-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.branch-option-btn {
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.9) 0%, rgba(244, 228, 188, 0.85) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  color: var(--ink-primary);
+  padding: 12px 15px;
+  border-radius: var(--border-radius-sm);
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Noto Serif SC', serif;
+  transition: all var(--transition-fast);
+}
+
+.branch-option-btn:hover {
+  background: var(--gold-accent);
+  color: #fff;
+  border-color: var(--gold-dark);
+}
+
+#branching-options-overlay .modal.disabled .branch-option-btn {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ============================================================
+ * 消息编辑模态框
+ * ============================================================ */
+
+#message-editor-modal {
+  max-width: 600px;
+  width: 90%;
+  padding: 30px;
+}
+
+#message-editor-modal h4 {
+  font-family: 'Cinzel', 'Noto Serif SC', serif;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#message-editor-textarea {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#save-message-edit-btn {
+  width: 100%;
+}
+
+/* ============================================================
+ * 存档模态框
+ * ============================================================ */
+
+.archive-modal {
+  max-width: 550px;
+  width: 95%;
+  max-height: 85vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.archive-modal h4 {
+  font-family: 'Cinzel', 'Noto Serif SC', serif;
+  font-size: 1.4rem;
+  color: var(--gold-dark);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.archive-modal .modal-hint {
+  text-align: center;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.archive-list-container {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 350px;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.empty-archive-hint {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-muted);
+}
+
+.empty-archive-hint p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.empty-archive-hint .hint-sub {
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.archive-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 18px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.95) 0%, rgba(244, 228, 188, 0.9) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.archive-item:hover {
+  background: linear-gradient(135deg, rgba(255, 253, 245, 0.98) 0%, rgba(248, 235, 200, 0.95) 100%);
+  border-color: var(--gold-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+}
+
+.archive-item:last-child {
+  margin-bottom: 0;
+}
+
+.archive-item.deleting {
+  animation: slideOutLeft 0.3s ease forwards;
+}
+
+.archive-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.archive-name {
+  font-weight: 600;
+  color: var(--ink-primary);
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.archive-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+.archive-details span {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.archive-char {
+  color: var(--sapphire);
+  font-weight: 500;
+}
+
+.archive-floor {
+  color: var(--gold-dark);
+}
+
+.archive-hp {
+  color: var(--blood-red);
+}
+
+.archive-time {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.archive-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 15px;
+  flex-shrink: 0;
+  opacity: 1;
+}
+
+.archive-item .archive-actions {
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.archive-item:hover .archive-actions {
+  opacity: 1;
+}
+
+.new-archive-input-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.12) 0%, rgba(139, 112, 25, 0.08) 100%);
+  border-radius: var(--border-radius-sm);
+  border: 1px dashed rgba(201, 162, 39, 0.4);
+  margin-bottom: 15px;
+}
+
+.new-archive-input-group .input-field {
+  flex: 1;
+  margin: 0;
+}
+
+.archive-modal-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 15px;
+  border-top: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.archive-modal-actions .btn {
+  flex: 1;
+  min-width: 100px;
+}
+
+/* ============================================================
+ * 删除确认模态框
+ * ============================================================ */
+
+.delete-confirm-modal {
+  max-width: 420px;
+  width: 90%;
+  padding: 30px;
+  text-align: center;
+}
+
+.delete-confirm-content {
+  margin-bottom: 25px;
+}
+
+.delete-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  color: var(--blood-red);
+  animation: shake 0.5s ease-in-out;
+}
+
+.delete-confirm-modal h4 {
+  font-family: 'Cinzel', 'Noto Serif SC', serif;
+  font-size: 1.3rem;
+  color: var(--ink-primary);
+  margin-bottom: 15px;
+}
+
+.delete-warning {
+  font-size: 1rem;
+  color: var(--ink-secondary);
+  margin-bottom: 10px;
+}
+
+.delete-warning span {
+  font-weight: 600;
+  color: var(--blood-red);
+}
+
+.delete-stats {
+  font-size: 0.95rem;
+  color: var(--ink-secondary);
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background: rgba(201, 162, 39, 0.1);
+  border-radius: var(--border-radius-sm);
+}
+
+.delete-stats strong {
+  font-weight: 700;
+  color: var(--gold-dark);
+  font-size: 1.1rem;
+}
+
+.delete-hint {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  padding: 10px 15px;
+  background: rgba(139, 30, 30, 0.08);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--blood-red);
+}
+
+.delete-confirm-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.delete-confirm-actions .btn {
+  flex: 1;
+  max-width: 150px;
+}
+
+/* ============================================================
+ * 总结模态框
+ * ============================================================ */
+
+.summary-modal {
+  max-width: 700px;
+  width: 95%;
+  max-height: 85vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-modal h4 {
+  font-family: 'Cinzel', 'Noto Serif SC', serif;
+  font-size: 1.5rem;
+  color: var(--gold-dark);
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.summary-modal .modal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.summary-hint {
+  text-align: center;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  margin: -10px 0 20px 0;
+  font-style: italic;
+}
+
+.summary-textarea {
+  min-height: 200px;
+  resize: vertical;
+  font-family: 'Noto Serif SC', serif;
+  line-height: 1.7;
+}
+
+.summary-save-btn {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.summary-context-options {
+  margin: 15px 0;
+  padding: 12px 15px;
+  background: rgba(201, 162, 39, 0.08);
+  border-radius: var(--border-radius-sm);
+}
+
+/* ============================================================
+ * 提示词编辑模态框
+ * ============================================================ */
+
+.prompt-edit-modal {
+  max-width: 800px;
+  width: 95%;
+  max-height: 90vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.prompt-edit-modal h4 {
+  font-family: 'Cinzel', 'Noto Serif SC', serif;
+  font-size: 1.3rem;
+  color: var(--gold-dark);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.prompt-edit-content {
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 20px;
+}
+
+.prompt-edit-content .prompt-textarea {
+  width: 100%;
+  min-height: 350px;
+  max-height: 50vh;
+  resize: vertical;
+}
+
+.prompt-edit-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding-top: 15px;
+  border-top: 1px dashed rgba(201, 162, 39, 0.3);
+}
+
+.prompt-edit-actions .btn {
+  min-width: 100px;
+}
+
+/* ============================================================
+ * 世界书模态框
+ * ============================================================ */
+
+.worldbook-new-modal {
+  max-width: 550px;
+  width: 95%;
+  padding: 30px;
+}
+
+.worldbook-new-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.new-worldbook-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  color: var(--gold-accent);
+}
+
+.new-worldbook-subtitle {
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+.worldbook-warning-box {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, rgba(192, 57, 43, 0.1) 0%, rgba(231, 76, 60, 0.05) 100%);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  border-radius: var(--border-radius-md);
+  margin-bottom: 25px;
+}
+
+.worldbook-warning-box .warning-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.worldbook-warning-box .warning-content {
+  flex: 1;
+}
+
+.worldbook-warning-box .warning-content strong {
+  display: block;
+  color: #c0392b;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+.worldbook-warning-box .warning-content p {
+  color: var(--ink-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.worldbook-warning-box .text-danger {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.btn-create-worldbook {
+  min-width: 180px;
+}
+
+.worldbook-edit-modal {
+  max-width: 600px;
+  width: 90%;
+}
+
+.worldbook-edit-modal .input-field {
+  width: 100%;
+}
+
+.worldbook-edit-modal textarea.input-field {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* ============================================================
+ * 世界书删除选择模态框
+ * ============================================================ */
+
+.worldbook-delete-select-modal {
+  max-width: 600px;
+  width: 95%;
+  max-height: 85vh;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-modal-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.delete-modal-header .page-title {
+  margin-bottom: 5px;
+}
+
+.delete-modal-subtitle {
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+}
+
+.delete-options-section {
+  margin-bottom: 15px;
+}
+
+.delete-option-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.selected-count-badge {
+  margin-left: auto;
+  padding: 5px 12px;
+  background: rgba(201, 162, 39, 0.15);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  transition: all var(--transition-fast);
+}
+
+.selected-count-badge.has-selection {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-dark) 100%);
+  color: #fff;
+  font-weight: 600;
+}
+
+.delete-entries-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 300px;
+  border: 1px solid rgba(201, 162, 39, 0.2);
+  border-radius: var(--border-radius-sm);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.delete-entry-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+  transition: all var(--transition-fast);
+}
+
+.delete-entry-item:last-child {
+  border-bottom: none;
+}
+
+.delete-entry-item:hover {
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.delete-entry-item.user-world-entry {
+  background: rgba(201, 162, 39, 0.1);
+  opacity: 0.7;
+}
+
+.delete-entry-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.delete-entry-checkbox input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold-accent);
+  cursor: pointer;
+}
+
+.delete-entry-checkbox input[type='checkbox']:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.checkbox-custom {
+  display: none;
+}
+
+.delete-entry-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.delete-entry-name {
+  font-weight: 600;
+  color: var(--ink-primary);
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete-entry-keys {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete-entry-badge {
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.delete-entry-badge.locked {
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.2) 0%, rgba(139, 112, 25, 0.15) 100%);
+  color: var(--gold-dark);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+}
+
+.delete-entry-hint {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.delete-no-entries {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-muted);
+}
+
+.delete-no-entries p {
+  margin: 0 0 8px 0;
+}
+
+.delete-no-entries .hint {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.delete-modal-footer {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.delete-warning-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  margin-bottom: 15px;
+}
+
+.delete-warning-text .icon {
+  color: #e67e22;
+}
+
+.worldbook-delete-confirm {
+  max-width: 420px;
+  width: 90%;
+  padding: 30px;
+  text-align: center;
+}
+
+.worldbook-delete-confirm .delete-confirm-content {
+  margin-bottom: 20px;
+}
+
+.worldbook-delete-confirm .delete-warning {
+  font-size: 1rem;
+  color: var(--ink-secondary);
+  margin: 15px 0;
+}
+
+.worldbook-delete-confirm .delete-warning strong {
+  color: #c0392b;
+}
+
+/* ============================================================
+ * 服装编辑模态框
+ * ============================================================ */
+
+.clothing-modal {
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* ============================================================
+ * 加载动画
+ * ============================================================ */
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(201, 162, 39, 0.2);
+  border-top-color: var(--gold-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ============================================================
+ * 响应式调整
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .modal {
+    margin: 10px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal .page-title {
+    font-size: 1.3rem;
+  }
+
+  .archive-modal {
+    padding: 20px;
+  }
+
+  .archive-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .archive-actions {
+    margin-left: 0;
+    margin-top: 12px;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .archive-modal-actions {
+    flex-direction: column;
+  }
+
+  .archive-modal-actions .btn {
+    width: 100%;
+  }
+
+  .new-archive-input-group {
+    flex-direction: column;
+  }
+
+  .new-archive-input-group .input-field {
+    width: 100%;
+  }
+
+  .new-archive-input-group .btn {
+    width: 100%;
+  }
+
+  .summary-modal {
+    padding: 20px;
+    max-height: 90vh;
+  }
+
+  .summary-modal h4 {
+    font-size: 1.3rem;
+  }
+
+  .worldbook-delete-select-modal {
+    padding: 20px;
+  }
+
+  .delete-option-buttons {
+    justify-content: center;
+  }
+
+  .selected-count-badge {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .delete-entries-list {
+    max-height: 250px;
+  }
+
+  .delete-entry-item {
+    flex-wrap: wrap;
+  }
+
+  .delete-entry-hint {
+    width: 100%;
+    margin-top: 5px;
+    margin-left: 30px;
+  }
+
+  .delete-modal-footer .modal-actions {
+    flex-direction: column;
+  }
+
+  .delete-modal-footer .modal-actions .btn {
+    width: 100%;
+  }
+
+  .worldbook-warning-box {
+    flex-direction: column;
+    text-align: center;
+  }
+}

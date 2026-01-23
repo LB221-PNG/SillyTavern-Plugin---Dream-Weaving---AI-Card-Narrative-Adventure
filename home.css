@@ -1,0 +1,71 @@
+/* ============================================================
+ * 克劳德 - AI卡牌叙事冒险
+ * 首页样式 (Home Page)
+ * ============================================================ */
+
+/* ============================================================
+ * 开始界面 (page-home)
+ * ============================================================ */
+
+#page-home {
+  text-align: center;
+}
+
+.home-container {
+  max-width: 500px;
+  padding: 60px 50px;
+}
+
+/* ============================================================
+ * 响应式调整
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .title-main {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-main {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .home-container {
+    padding: 40px 20px;
+  }
+
+  .menu-buttons {
+    gap: 0.8rem;
+  }
+}
+
+/* 横屏手机优化 */
+@media (max-height: 500px) and (orientation: landscape) {
+  .home-container {
+    padding: 30px 40px;
+  }
+
+  .title-main {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .menu-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+
+  .menu-buttons .btn {
+    flex: 1;
+    min-width: 150px;
+    max-width: 200px;
+  }
+}

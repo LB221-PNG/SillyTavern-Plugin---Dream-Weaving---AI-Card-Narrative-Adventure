@@ -1,0 +1,544 @@
+/* ========================================
+   动态地图系统样式
+   ======================================== */
+
+/* 地图容器 */
+#map-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 16px 0;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#map-container.hidden {
+  display: none;
+}
+
+#map-container.collapsed {
+  height: 60px;
+}
+
+#map-container.collapsed #map-svg {
+  display: none;
+}
+
+/* SVG画布 */
+#map-svg {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+#map-svg:active {
+  cursor: grabbing;
+}
+
+/* 地图标题栏 */
+.map-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  z-index: 10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-title {
+  color: #e0e0e0;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-title::before {
+  content: '🗺️';
+  font-size: 16px;
+}
+
+.map-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.map-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.map-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.map-btn:active {
+  transform: scale(0.95);
+}
+
+/* 地图图例 */
+.map-legend {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: #b0b0b0;
+  z-index: 10;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-dot.player {
+  background: #4fc3f7;
+  box-shadow: 0 0 6px #4fc3f7;
+}
+
+.legend-dot.location {
+  background: #81c784;
+}
+
+.legend-dot.npc {
+  background: #ffb74d;
+}
+
+.legend-dot.poi {
+  background: #ba68c8;
+}
+
+/* 缩放控制 */
+.zoom-controls {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+
+.zoom-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #e0e0e0;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.zoom-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* 工具提示 */
+.map-tooltip {
+  position: absolute;
+  background: rgba(20, 20, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  max-width: 200px;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.map-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tooltip-title {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.tooltip-type {
+  color: #888;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.tooltip-desc {
+  color: #b0b0b0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.tooltip-hint {
+  color: #4fc3f7;
+  font-size: 11px;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* SVG元素样式 */
+
+/* 路径连线 */
+.map-path {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 5, 5;
+  transition: stroke 0.3s ease;
+}
+
+.map-path:hover {
+  stroke: rgba(255, 255, 255, 0.4);
+}
+
+.map-path.active {
+  stroke: #4fc3f7;
+  stroke-dasharray: none;
+  stroke-width: 3;
+}
+
+/* 地点节点 */
+.map-location {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.map-location:hover {
+  transform: scale(1.1);
+}
+
+.location-circle {
+  fill: #2d5a3d;
+  stroke: #81c784;
+  stroke-width: 2;
+  transition: all 0.2s ease;
+}
+
+.map-location:hover .location-circle {
+  fill: #3d7a4d;
+  stroke-width: 3;
+}
+
+.map-location.current .location-circle {
+  fill: #1a4a6e;
+  stroke: #4fc3f7;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 8px rgba(79, 195, 247, 0.5));
+}
+
+.location-icon {
+  font-size: 16px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.location-label {
+  fill: #e0e0e0;
+  font-size: 11px;
+  text-anchor: middle;
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* NPC标记 */
+.map-npc {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.map-npc:hover {
+  transform: scale(1.15);
+}
+
+.npc-circle {
+  fill: #5d4037;
+  stroke: #ffb74d;
+  stroke-width: 2;
+  transition: all 0.2s ease;
+}
+
+.map-npc:hover .npc-circle {
+  fill: #6d5047;
+  stroke-width: 3;
+}
+
+.npc-icon {
+  font-size: 14px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.npc-label {
+  fill: #ffb74d;
+  font-size: 10px;
+  text-anchor: middle;
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* 玩家标记 */
+.map-player {
+  pointer-events: none;
+}
+
+.player-circle {
+  fill: #1565c0;
+  stroke: #4fc3f7;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 10px rgba(79, 195, 247, 0.6));
+}
+
+.player-pulse {
+  fill: none;
+  stroke: #4fc3f7;
+  stroke-width: 2;
+  opacity: 0.6;
+  animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    r: 12;
+    opacity: 0.6;
+  }
+  100% {
+    r: 25;
+    opacity: 0;
+  }
+}
+
+.player-icon {
+  font-size: 12px;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* 兴趣点 */
+.map-poi {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.map-poi:hover {
+  transform: scale(1.2);
+}
+
+.poi-marker {
+  fill: #7b1fa2;
+  stroke: #ba68c8;
+  stroke-width: 2;
+}
+
+.poi-icon {
+  font-size: 12px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+/* 迷雾效果（未探索区域） */
+.fog-of-war {
+  fill: rgba(10, 10, 20, 0.8);
+  pointer-events: none;
+}
+
+/* 区域边界 */
+.region-boundary {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1;
+  stroke-dasharray: 10, 5;
+}
+
+/* 加载状态 */
+.map-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #888;
+  font-size: 13px;
+}
+
+.map-loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #4fc3f7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 空状态 */
+.map-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+}
+
+.map-empty-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  #map-container {
+    height: 250px;
+    margin: 12px 0;
+  }
+  
+  .map-header {
+    height: 36px;
+    padding: 0 8px;
+  }
+  
+  .map-title {
+    font-size: 12px;
+  }
+  
+  .map-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .map-legend {
+    padding: 6px 8px;
+    gap: 8px;
+    font-size: 10px;
+  }
+  
+  .zoom-controls {
+    display: none;
+  }
+  
+  .map-tooltip {
+    max-width: 160px;
+    padding: 8px 10px;
+  }
+  
+  .tooltip-title {
+    font-size: 12px;
+  }
+  
+  .tooltip-desc {
+    font-size: 11px;
+  }
+}
+
+/* 深色主题增强 */
+@media (prefers-color-scheme: dark) {
+  #map-container {
+    background: linear-gradient(135deg, #0d0d1a 0%, #0a1628 50%, #071a30 100%);
+  }
+}
+
+/* 动画效果 */
+.map-location,
+.map-npc,
+.map-poi {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 路径动画 */
+.map-path {
+  stroke-dashoffset: 0;
+  animation: pathDash 20s linear infinite;
+}
+
+@keyframes pathDash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* 交互反馈 */
+.map-location.clicked,
+.map-npc.clicked {
+  animation: clickPulse 0.3s ease-out;
+}
+
+@keyframes clickPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

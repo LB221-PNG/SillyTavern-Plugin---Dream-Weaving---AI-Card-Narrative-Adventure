@@ -1,0 +1,943 @@
+/* ============================================================
+ * 克劳德 - AI卡牌叙事冒险
+ * 卡牌样式 (Card Components)
+ * ============================================================ */
+
+/* ============================================================
+ * 游戏卡牌
+ * ============================================================ */
+
+.game-card {
+  width: 130px;
+  height: 180px;
+  /* 羊皮纸纹理背景 */
+  background-color: #f4e4bc;
+  background-image:
+    /* 噪点纹理 */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+    /* 边缘暗角 */ radial-gradient(circle at center, transparent 50%, rgba(166, 138, 86, 0.15) 100%),
+    /* 基础渐变 */ linear-gradient(135deg, rgba(255, 252, 245, 0.98) 0%, rgba(244, 228, 188, 0.95) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.6);
+  border-radius: var(--border-radius-md);
+  padding: 12px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 2px 10px rgba(44, 24, 16, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+/* 内部装饰边框 */
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 角落花纹装饰 */
+.game-card::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background:
+    linear-gradient(135deg, rgba(201, 162, 39, 0.5) 6px, transparent 6px) top left,
+    linear-gradient(225deg, rgba(201, 162, 39, 0.5) 6px, transparent 6px) top right,
+    linear-gradient(45deg, rgba(201, 162, 39, 0.5) 6px, transparent 6px) bottom left,
+    linear-gradient(315deg, rgba(201, 162, 39, 0.5) 6px, transparent 6px) bottom right;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 8px;
+}
+
+/* 确保内容在装饰之上 */
+.game-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.game-card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: var(--shadow-strong);
+  z-index: 10;
+}
+
+.game-card.selected {
+  border-color: var(--gold-accent);
+  box-shadow: 0 0 20px rgba(201, 162, 39, 0.5);
+  transform: translateY(-20px);
+}
+
+.game-card.attack {
+  border-color: rgba(196, 69, 54, 0.6);
+}
+
+.game-card.attack::after {
+  background:
+    linear-gradient(135deg, rgba(196, 69, 54, 0.5) 6px, transparent 6px) top left,
+    linear-gradient(225deg, rgba(196, 69, 54, 0.5) 6px, transparent 6px) top right,
+    linear-gradient(45deg, rgba(196, 69, 54, 0.5) 6px, transparent 6px) bottom left,
+    linear-gradient(315deg, rgba(196, 69, 54, 0.5) 6px, transparent 6px) bottom right;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+}
+
+.game-card.skill {
+  border-color: rgba(45, 90, 61, 0.6);
+}
+
+.game-card.skill::after {
+  background:
+    linear-gradient(135deg, rgba(45, 90, 61, 0.5) 6px, transparent 6px) top left,
+    linear-gradient(225deg, rgba(45, 90, 61, 0.5) 6px, transparent 6px) top right,
+    linear-gradient(45deg, rgba(45, 90, 61, 0.5) 6px, transparent 6px) bottom left,
+    linear-gradient(315deg, rgba(45, 90, 61, 0.5) 6px, transparent 6px) bottom right;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+}
+
+.game-card.power {
+  border-color: rgba(74, 144, 217, 0.6);
+}
+
+.game-card.power::after {
+  background:
+    linear-gradient(135deg, rgba(74, 144, 217, 0.5) 6px, transparent 6px) top left,
+    linear-gradient(225deg, rgba(74, 144, 217, 0.5) 6px, transparent 6px) top right,
+    linear-gradient(45deg, rgba(74, 144, 217, 0.5) 6px, transparent 6px) bottom left,
+    linear-gradient(315deg, rgba(74, 144, 217, 0.5) 6px, transparent 6px) bottom right;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+}
+
+/* ============================================================
+ * 卡牌稀有度样式
+ * ============================================================ */
+
+/* 平庸 */
+.game-card.mediocre {
+  border-color: #95a5a6;
+}
+.game-card.mediocre .card-name {
+  color: #7f8c8d;
+}
+
+/* 优质 */
+.game-card.quality {
+  border-color: #2ecc71;
+  box-shadow: 0 0 5px rgba(46, 204, 113, 0.3);
+}
+.game-card.quality .card-name {
+  color: #27ae60;
+}
+
+/* 精良 */
+.game-card.excellent {
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.4);
+}
+.game-card.excellent .card-name {
+  color: #2980b9;
+}
+
+/* 史诗 */
+.game-card.epic {
+  border-color: #9b59b6;
+  box-shadow: 0 0 10px rgba(155, 89, 182, 0.5);
+}
+.game-card.epic .card-name {
+  color: #8e44ad;
+}
+
+/* 传奇 */
+.game-card.legendary {
+  border-color: #f1c40f;
+  box-shadow: 0 0 15px rgba(241, 196, 15, 0.6);
+  background-image: linear-gradient(135deg, rgba(255, 252, 245, 0.98) 0%, rgba(255, 245, 200, 0.95) 100%);
+}
+.game-card.legendary .card-name {
+  color: #d35400;
+  text-shadow: 0 1px 2px rgba(241, 196, 15, 0.3);
+}
+
+/* 暗金 */
+.game-card.dark_gold {
+  border-color: #b7950b;
+  background-color: #2c3e50;
+  background-image: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+  box-shadow: 0 0 20px rgba(183, 149, 11, 0.7);
+}
+.game-card.dark_gold .card-name {
+  color: #f1c40f;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+.game-card.dark_gold .card-desc,
+.game-card.dark_gold .card-type {
+  color: #bdc3c7;
+}
+
+.game-card .card-cost {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--energy-blue) 0%, var(--sapphire) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.4);
+}
+
+.game-card .card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--ink-primary);
+}
+
+.game-card .card-type {
+  font-size: 0.7rem;
+  text-align: center;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.game-card .card-desc {
+  flex: 1;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+  overflow: hidden;
+}
+
+/* ============================================================
+ * 卡组迷你卡牌
+ * ============================================================ */
+
+.deck-card-mini {
+  aspect-ratio: 2.5/3.5;
+  background-color: #f4e4bc;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, rgba(255, 250, 240, 0.95) 0%, rgba(232, 213, 163, 0.9) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  border-radius: var(--border-radius-sm);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.deck-card-mini::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px solid rgba(201, 162, 39, 0.2);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.deck-card-mini > * {
+  position: relative;
+  z-index: 1;
+}
+
+.deck-card-mini:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--gold-accent);
+}
+
+.deck-card-mini .card-cost {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, var(--energy-blue) 0%, var(--sapphire) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.deck-card-mini .card-name {
+  font-size: 0.7rem;
+  text-align: center;
+  color: var(--ink-secondary);
+}
+
+.deck-card-mini.attack {
+  border-color: rgba(196, 69, 54, 0.5);
+}
+
+.deck-card-mini.skill {
+  border-color: rgba(45, 90, 61, 0.5);
+}
+
+.deck-card-mini.power {
+  border-color: rgba(74, 144, 217, 0.5);
+}
+
+/* 迷你卡牌稀有度 */
+.deck-card-mini.mediocre { border-color: #95a5a6; }
+.deck-card-mini.quality { border-color: #2ecc71; }
+.deck-card-mini.excellent { border-color: #3498db; }
+.deck-card-mini.epic { border-color: #9b59b6; }
+.deck-card-mini.legendary { border-color: #f1c40f; box-shadow: 0 0 8px rgba(241, 196, 15, 0.4); }
+.deck-card-mini.dark_gold { 
+  border-color: #b7950b; 
+  background: #2c3e50;
+  box-shadow: 0 0 10px rgba(183, 149, 11, 0.5);
+}
+.deck-card-mini.dark_gold .card-name { color: #f1c40f; }
+
+/* ============================================================
+ * 战斗迷你卡牌
+ * ============================================================ */
+
+.card-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: rgba(255, 250, 240, 0.9);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+}
+
+.card-mini.attack {
+  border-color: rgba(196, 69, 54, 0.4);
+  background: rgba(196, 69, 54, 0.05);
+}
+
+.card-mini.skill {
+  border-color: rgba(45, 90, 61, 0.4);
+  background: rgba(45, 90, 61, 0.05);
+}
+
+.card-mini.power {
+  border-color: rgba(74, 144, 217, 0.4);
+  background: rgba(74, 144, 217, 0.05);
+}
+
+.card-mini .card-cost {
+  width: 18px;
+  height: 18px;
+  background: var(--energy-blue);
+  border-radius: 50%;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-mini .card-name {
+  color: var(--ink-secondary);
+}
+
+/* ============================================================
+ * 卡组概览
+ * ============================================================ */
+
+.deck-overview {
+  padding: 20px;
+}
+
+.deck-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.deck-title {
+  font-size: 1.2rem;
+}
+
+.deck-count {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gold-accent);
+}
+
+.deck-tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 1rem;
+}
+
+.deck-tab {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  background: transparent;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: var(--border-radius-sm);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.deck-tab:hover,
+.deck-tab.active {
+  background: rgba(201, 162, 39, 0.2);
+  border-color: var(--gold-accent);
+}
+
+.deck-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+/* ============================================================
+ * 卡组编辑模式
+ * ============================================================ */
+
+/* 视图切换标签 */
+.deck-view-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.deck-view-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255, 250, 240, 0.1);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--ink-secondary);
+  font-family: inherit;
+}
+
+.deck-view-tab:hover {
+  background: rgba(201, 162, 39, 0.15);
+  border-color: rgba(201, 162, 39, 0.5);
+}
+
+.deck-view-tab.active {
+  background: rgba(201, 162, 39, 0.2);
+  border-color: var(--gold-accent);
+  color: var(--ink-primary);
+}
+
+.deck-view-tab .tab-icon {
+  font-size: 1.2rem;
+}
+
+.deck-view-tab .tab-label {
+  font-weight: 500;
+}
+
+.deck-view-tab .tab-count {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+}
+
+/* 工具栏 */
+.deck-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.deck-filter-tabs {
+  display: flex;
+  gap: 5px;
+}
+
+.deck-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.deck-edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.deck-edit-btn.active {
+  background: var(--gold-accent);
+  color: white;
+}
+
+/* 编辑工具栏 */
+.deck-edit-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: rgba(201, 162, 39, 0.1);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 15px;
+}
+
+.selected-count {
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+}
+
+.selected-count strong {
+  color: var(--gold-accent);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* 编辑模式下的卡牌样式 */
+.deck-card-mini.editable {
+  cursor: pointer;
+  position: relative;
+}
+
+.deck-card-mini.editable:hover {
+  border-color: var(--gold-accent);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.3);
+}
+
+.deck-card-mini.selected {
+  border-color: var(--gold-accent) !important;
+  box-shadow: 0 0 15px rgba(201, 162, 39, 0.5);
+  transform: translateY(-5px);
+}
+
+.card-select-indicator {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(201, 162, 39, 0.5);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all var(--transition-fast);
+}
+
+.deck-card-mini.selected .card-select-indicator {
+  background: var(--gold-accent);
+  border-color: var(--gold-accent);
+}
+
+.deck-card-mini.selected .card-select-indicator::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* 空状态消息 */
+.deck-empty-message {
+  text-align: center;
+  color: var(--ink-muted);
+  padding: 40px 20px;
+  font-style: italic;
+}
+
+/* 仓库提示 */
+.warehouse-hint {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* 卡牌详情操作按钮 */
+.card-detail-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+/* 警告按钮样式 */
+.btn-warning {
+  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+  color: white;
+  border: none;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.cards-mini-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ============================================================
+ * 手牌区域
+ * ============================================================ */
+
+.hand-area {
+  margin-bottom: 1.5rem;
+}
+
+.hand-label {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+}
+
+.hand-cards {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 180px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: var(--border-radius-md);
+}
+
+/* ============================================================
+ * 牌堆信息
+ * ============================================================ */
+
+.pile-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 10px 15px;
+  background: rgba(201, 162, 39, 0.1);
+  border-radius: var(--border-radius-sm);
+}
+
+.pile-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.pile-count {
+  font-weight: 600;
+  color: var(--gold-accent);
+}
+
+/* ============================================================
+ * 敌人卡牌
+ * ============================================================ */
+
+.enemy-card {
+  background: linear-gradient(135deg, rgba(139, 30, 30, 0.15) 0%, rgba(44, 24, 16, 0.1) 100%);
+  border: 2px solid rgba(139, 30, 30, 0.4);
+  border-radius: var(--border-radius-md);
+  padding: 20px;
+  text-align: center;
+}
+
+.enemy-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.enemy-level {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+}
+
+.enemy-health {
+  margin-bottom: 1rem;
+}
+
+.enemy-intent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background: rgba(139, 30, 30, 0.2);
+  border-radius: var(--border-radius-sm);
+}
+
+.intent-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.intent-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--blood-red);
+}
+
+/* ============================================================
+ * 敌人卡牌预览
+ * ============================================================ */
+
+.enemy-card-preview {
+  background: linear-gradient(135deg, rgba(139, 30, 30, 0.1) 0%, rgba(44, 24, 16, 0.05) 100%);
+  border: 2px solid rgba(139, 30, 30, 0.3);
+  border-radius: var(--border-radius-md);
+  padding: 25px;
+}
+
+.enemy-card-preview .enemy-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.enemy-card-preview .enemy-emoji {
+  font-size: 2.5rem;
+}
+
+.enemy-card-preview .enemy-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.enemy-card-preview .enemy-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.enemy-card-preview .enemy-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.enemy-card-preview .stat-label {
+  width: 60px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.enemy-card-preview .stat-bar-track {
+  flex: 1;
+  height: 10px;
+}
+
+.enemy-card-preview .stat-bar-fill.lust {
+  background: linear-gradient(90deg, #9b59b6 0%, #8e44ad 100%);
+  box-shadow: 0 0 10px rgba(155, 89, 182, 0.5);
+}
+
+.enemy-card-preview .enemy-description {
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.enemy-card-preview .enemy-actions-list {
+  margin-bottom: 1.5rem;
+}
+
+.enemy-card-preview .enemy-actions-list h4 {
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.action-item {
+  padding: 12px;
+  background: rgba(139, 30, 30, 0.05);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 8px;
+}
+
+.action-item strong {
+  display: block;
+  color: var(--blood-red);
+  margin-bottom: 4px;
+}
+
+.action-item span {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ink-secondary);
+  margin-bottom: 4px;
+}
+
+.action-item code {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-family: monospace;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.enemy-card-preview .enemy-mode {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: rgba(201, 162, 39, 0.1);
+  border-radius: var(--border-radius-sm);
+}
+
+.enemy-card-preview .mode-label {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.enemy-card-preview .mode-value {
+  font-weight: 500;
+  color: var(--gold-accent);
+}
+
+/* ============================================================
+ * 提示信息
+ * ============================================================ */
+
+.more-hint {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  font-style: italic;
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ============================================================
+ * 响应式调整
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .hand-cards {
+    gap: 8px;
+    padding: 15px 10px;
+  }
+
+  .game-card {
+    width: 90px;
+    height: 125px;
+    padding: 6px;
+  }
+
+  .game-card .card-cost {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+    top: -6px;
+    left: -6px;
+  }
+
+  .game-card .card-name {
+    font-size: 0.75rem;
+  }
+
+  .game-card .card-type {
+    font-size: 0.6rem;
+  }
+
+  .game-card .card-desc {
+    font-size: 0.65rem;
+  }
+
+  .deck-cards {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 8px;
+  }
+
+  .deck-card-mini {
+    padding: 6px;
+  }
+
+  .deck-card-mini .card-cost {
+    width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+  }
+
+  .deck-card-mini .card-name {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-card {
+    width: 80px;
+    height: 110px;
+    padding: 5px;
+  }
+
+  .game-card .card-cost {
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+  }
+
+  .game-card .card-name {
+    font-size: 0.7rem;
+  }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+  .game-card:hover {
+    transform: none;
+  }
+
+  .game-card:active {
+    transform: scale(0.98);
+  }
+}

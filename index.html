@@ -1,0 +1,1443 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="LLM驱动的无限流卡牌叙事冒险游戏 - 自定义角色与世界，体验独特的AI交互式冒险" />
+    <title>梦境编织者 - AI卡牌叙事冒险</title>
+
+    <!-- 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 样式文件 - 模块化CSS入口 -->
+    <link rel="stylesheet" href="main.css" />
+    <!-- 动态地图样式 -->
+    <link rel="stylesheet" href="map.css" />
+  </head>
+  <body>
+    <!-- ============================================================
+         开始界面
+         ============================================================ -->
+    <div id="page-home" class="page active">
+      <div class="glass-panel home-container">
+        <div class="decorative-border top-left"></div>
+        <div class="decorative-border top-right"></div>
+        <div class="decorative-border bottom-left"></div>
+        <div class="decorative-border bottom-right"></div>
+
+        <h1 class="title-main">梦境编织者</h1>
+        <p class="subtitle">AI卡牌叙事冒险</p>
+
+        <div class="menu-buttons">
+          <button class="btn btn-primary" id="btn-new-game">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            开始游戏
+          </button>
+          <button class="btn btn-secondary" id="btn-load-game">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            加载存档
+          </button>
+          <button class="btn btn-secondary" id="btn-settings-home">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+              ></path>
+            </svg>
+            游戏设置
+          </button>
+        </div>
+
+<p class="version-info">版本 0.2.7 Alpha</p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         角色创建界面
+         ============================================================ -->
+    <div id="page-character" class="page">
+      <div class="glass-panel form-container">
+        <div class="decorative-border top-left"></div>
+        <div class="decorative-border top-right"></div>
+        <div class="decorative-border bottom-left"></div>
+        <div class="decorative-border bottom-right"></div>
+
+        <h2 class="page-title">创建角色</h2>
+
+        <form id="character-form">
+          <div class="form-row">
+            <div class="input-group">
+              <label for="char-name">姓名</label>
+              <input type="text" id="char-name" class="input-field" placeholder="输入角色姓名" required />
+            </div>
+            <div class="input-group">
+              <label for="char-gender">性别</label>
+              <select id="char-gender" class="input-field">
+                <option value="female">女</option>
+                <option value="male">男</option>
+                <option value="other">其他</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label for="char-age">年龄</label>
+              <input
+                type="number"
+                id="char-age"
+                class="input-field"
+                placeholder="角色年龄"
+                min="1"
+                max="9999"
+                value="24"
+              />
+            </div>
+            <div class="input-group">
+              <label for="char-race">种族</label>
+              <select id="char-race" class="input-field">
+                <option value="human">人类</option>
+                <option value="elf">精灵</option>
+                <option value="dwarf">矮人</option>
+                <option value="halfling">半身人</option>
+                <option value="orc">兽人</option>
+                <option value="other">其他</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="char-class">职业</label>
+            <input
+              type="text"
+              id="char-class"
+              class="input-field"
+              placeholder="例如：流浪剑士、元素法师、神秘游侠..."
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="char-appearance">外貌描述</label>
+            <textarea
+              id="char-appearance"
+              class="input-field"
+              placeholder="描述角色的外貌特征，如发色、瞳色、身材、穿着等..."
+            ></textarea>
+          </div>
+
+          <div class="input-group">
+            <label for="char-background">过往经历</label>
+            <textarea
+              id="char-background"
+              class="input-field"
+              placeholder="描述角色的背景故事，这将影响初始卡组的生成..."
+            ></textarea>
+          </div>
+
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-secondary" id="btn-back-home">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              返回
+            </button>
+            <button type="submit" class="btn btn-primary">
+              下一步：构筑世界
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         世界创建界面
+         ============================================================ -->
+    <div id="page-world" class="page">
+      <div class="glass-panel form-container">
+        <div class="decorative-border top-left"></div>
+        <div class="decorative-border top-right"></div>
+        <div class="decorative-border bottom-left"></div>
+        <div class="decorative-border bottom-right"></div>
+
+        <h2 class="page-title">构筑世界</h2>
+
+        <form id="world-form">
+          <div class="input-group">
+            <label for="world-prompt">世界基调</label>
+            <textarea
+              id="world-prompt"
+              class="input-field"
+              placeholder="描述你的世界设定，例如：一个魔法与蒸汽科技并存的时代，古老的神祇已经沉睡，而新的机械神明正在崛起..."
+              style="min-height: 180px"
+            ></textarea>
+          </div>
+
+          <div class="helper-buttons">
+            <button type="button" class="btn btn-secondary btn-small" id="btn-ai-expand">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 16px; height: 16px"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                ></polygon>
+              </svg>
+              AI 扩写设定
+            </button>
+            <div class="file-input-wrapper">
+              <button type="button" class="btn btn-secondary btn-small">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                导入世界书
+              </button>
+              <input type="file" id="world-book-import" accept=".json" />
+            </div>
+          </div>
+
+          <h3 class="section-title">当前世界规则预览</h3>
+          <div class="world-preview" id="world-preview">世界尚未坍缩成型，请输入世界基调或导入世界书...</div>
+
+          <div class="input-group opening-prompt-section">
+            <label for="opening-prompt">
+              <span class="section-icon">✨</span>
+              期望开场白
+              <span class="optional-hint">（可选）</span>
+            </label>
+            <textarea
+              id="opening-prompt"
+              class="input-field"
+              placeholder="描述你期望的开场场景，系统将根据此提示生成第一条消息回复...
+
+例如：
+• 主角在一个雨夜醒来，发现自己身处陌生的古堡中
+• 故事开始于一场盛大的宴会，主角正与贵族们交谈
+• 主角刚刚完成一次危险的任务，正在休息..."
+              style="min-height: 120px"
+            ></textarea>
+            <p class="input-hint">提供开场场景的提示，AI将据此生成符合设定的第一条剧情回复</p>
+          </div>
+
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-secondary" id="btn-back-character">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              返回
+            </button>
+            <button type="submit" class="btn btn-primary" id="btn-start-adventure">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+              降临世界
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         主游戏界面 - 全新设计
+         ============================================================ -->
+    <div id="page-game" class="page">
+      <!-- 处理指示器 -->
+      <div id="logic-processing-indicator" class="hidden">
+        <svg
+          class="icon spin-animation"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          style="width: 16px; height: 16px"
+        >
+          <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+        </svg>
+        <span class="indicator-text">处理变量中...</span>
+      </div>
+
+      <!-- 侧边栏切换按钮 -->
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" title="打开状态面板">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- 侧边栏遮罩 -->
+      <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+      <div class="game-container-new">
+        <!-- 左侧状态栏（可折叠） -->
+        <aside class="glass-panel status-sidebar collapsed" id="status-sidebar">
+          <div class="decorative-border top-left"></div>
+          <div class="decorative-border top-right"></div>
+          <div class="decorative-border bottom-left"></div>
+          <div class="decorative-border bottom-right"></div>
+
+          <!-- 关闭按钮 -->
+          <button class="sidebar-close-btn" id="sidebar-close-btn" title="关闭">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              style="width: 20px; height: 20px"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <!-- 角色头像和基本信息 -->
+          <div class="sidebar-section character-header-section">
+            <div class="character-portrait-new" id="game-portrait">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                style="width: 50%; height: 50%; opacity: 0.6"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div class="character-info-new">
+              <h3 class="character-name" id="game-char-name">未命名</h3>
+              <p class="character-class" id="game-char-class">流浪者 / 人类</p>
+              <p class="character-time" id="game-time">1月1日 清晨</p>
+            </div>
+          </div>
+
+          <!-- 核心数值 -->
+          <div class="sidebar-section core-stats-section">
+            <div class="stat-bar">
+              <div class="stat-bar-header">
+                <span>❤️ 生命值</span>
+                <span id="hp-display">80 / 80</span>
+              </div>
+              <div class="stat-bar-track">
+                <div class="stat-bar-fill health" id="hp-bar" style="width: 100%"></div>
+              </div>
+            </div>
+            <div class="mini-stats">
+              <div class="mini-stat">
+                <span class="mini-stat-icon">💰</span>
+                <span class="mini-stat-value" id="stat-gold">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 位置和天气 -->
+          <div class="sidebar-section location-section">
+            <div class="section-header-mini">
+              <span class="section-icon">📍</span>
+              <span class="section-label">位置</span>
+            </div>
+            <p class="location-text" id="game-location">未知之地</p>
+            <p class="weather-text" id="game-weather">☁ 阴天</p>
+          </div>
+
+          <!-- 当前服装 -->
+          <div class="sidebar-section clothing-section collapsible-section">
+            <div class="section-header-mini clickable" data-target="clothing-content">
+              <span class="section-icon">👔</span>
+              <span class="section-label">服装</span>
+              <svg
+                class="collapse-arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 14px; height: 14px"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="section-content-mini collapsed" id="clothing-content">
+              <div class="clothing-mini-grid">
+                <div class="clothing-mini-item" title="上身">
+                  <span class="clothing-slot-icon">👕</span>
+                  <span class="clothing-slot-value" id="clothing-upper">简陋的麻布衣</span>
+                </div>
+                <div class="clothing-mini-item" title="下身">
+                  <span class="clothing-slot-icon">👖</span>
+                  <span class="clothing-slot-value" id="clothing-lower">破旧的布裤</span>
+                </div>
+                <div class="clothing-mini-item" title="脚部">
+                  <span class="clothing-slot-icon">👟</span>
+                  <span class="clothing-slot-value" id="clothing-feet">草鞋</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 当前状态 -->
+          <div class="sidebar-section status-section collapsible-section">
+            <div class="section-header-mini clickable" data-target="status-content">
+              <span class="section-icon">✨</span>
+              <span class="section-label">状态</span>
+              <svg
+                class="collapse-arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 14px; height: 14px"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="section-content-mini collapsed" id="status-content">
+              <div class="status-tags-mini" id="status-tags">
+                <span class="status-tag-mini empty">无特殊状态</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 势力关系 -->
+          <div class="sidebar-section faction-section collapsible-section">
+            <div class="section-header-mini clickable" data-target="faction-content">
+              <span class="section-icon">⚔️</span>
+              <span class="section-label">势力</span>
+              <svg
+                class="collapse-arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 14px; height: 14px"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="section-content-mini collapsed" id="faction-content">
+              <div class="faction-info">
+                <span class="faction-alignment" id="faction-alignment">⚖️ 绝对中立</span>
+                <div class="faction-relations" id="faction-relations">
+                  <span class="empty-faction">暂无势力关系</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 敌人信息（战斗时显示） -->
+          <div class="sidebar-section enemy-section" id="sidebar-enemy-section" style="display: none">
+            <div class="section-header-mini enemy-header">
+              <span class="section-icon">👹</span>
+              <span class="section-label">当前敌人</span>
+            </div>
+            <div class="enemy-mini-card" id="sidebar-enemy-card">
+              <div class="enemy-mini-name" id="sidebar-enemy-name">未知敌人</div>
+              <div class="stat-bar-mini">
+                <div class="stat-bar-fill health" id="sidebar-enemy-hp" style="width: 100%"></div>
+              </div>
+              <div class="enemy-mini-hp" id="sidebar-enemy-hp-text">? / ?</div>
+            </div>
+          </div>
+
+          <!-- 快捷操作 -->
+          <div class="sidebar-actions">
+            <button class="btn btn-secondary btn-small sidebar-btn" id="btn-view-deck" title="查看卡组">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 16px; height: 16px"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              <span>卡组</span>
+            </button>
+            <button class="btn btn-ghost btn-small sidebar-btn" id="btn-game-settings" title="设置">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 16px; height: 16px"
+              >
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
+              </svg>
+              <span>设置</span>
+            </button>
+            <button class="btn btn-danger btn-small sidebar-btn" id="btn-return-home" title="返回主菜单">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 16px; height: 16px"
+              >
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>主菜单</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content-area-new">
+          <!-- 叙事面板 -->
+          <div class="glass-panel narrative-panel-new" id="narrative-panel">
+            <div class="decorative-border top-left"></div>
+            <div class="decorative-border top-right"></div>
+            <div class="decorative-border bottom-left"></div>
+            <div class="decorative-border bottom-right"></div>
+
+            <!-- 动态地图容器 -->
+            <div id="map-container" class="hidden">
+              <div class="map-header">
+                <span class="map-title">探索地图</span>
+                <div class="map-controls">
+                  <button class="map-btn" id="map-toggle-btn" title="折叠/展开">−</button>
+                </div>
+              </div>
+              <svg id="map-svg"></svg>
+              <div class="map-tooltip" id="map-tooltip"></div>
+              <div class="map-legend">
+                <div class="legend-item">
+                  <span class="legend-icon location"></span>
+                  <span>地点</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-icon npc"></span>
+                  <span>NPC</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-icon player"></span>
+                  <span>玩家</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 消息内容区域 -->
+            <div class="narrative-content-new" id="narrative-content">
+              <div class="log-entry system">正在编织命运的丝线，请稍候...</div>
+            </div>
+
+            <!-- 分支选择按钮 -->
+            <button id="branch-toggle-btn" class="hidden">
+              <svg
+                class="arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 20px; height: 20px"
+              >
+                <polyline points="18 15 12 9 6 15"></polyline>
+              </svg>
+            </button>
+
+            <!-- 消息发送区域 -->
+            <div class="message-sender-area">
+              <textarea id="message-input" rows="1" placeholder="输入你的行为或想法..."></textarea>
+              <button id="expand-input-btn" class="sender-btn control-button" title="展开/收起输入框">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <polyline points="9 21 3 21 3 15"></polyline>
+                  <line x1="21" y1="3" x2="14" y2="10"></line>
+                  <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+              </button>
+              <button id="send-message-button" class="sender-btn-primary" title="发送">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 18px; height: 18px"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+              <span id="action-queue-indicator">!</span>
+            </div>
+          </div>
+
+          <!-- 战斗面板 -->
+          <div class="glass-panel battle-panel" id="battle-panel">
+            <div class="decorative-border top-left"></div>
+            <div class="decorative-border top-right"></div>
+            <div class="decorative-border bottom-left"></div>
+            <div class="decorative-border bottom-right"></div>
+
+            <div class="battle-header">
+              <span class="turn-indicator">第 <span id="turn-number">1</span> 回合</span>
+              <button class="btn btn-ghost btn-small" id="btn-flee">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                  <line x1="6" y1="1" x2="6" y2="4"></line>
+                  <line x1="10" y1="1" x2="10" y2="4"></line>
+                  <line x1="14" y1="1" x2="14" y2="4"></line>
+                </svg>
+                撤退
+              </button>
+            </div>
+
+            <div class="battle-field">
+              <div class="enemy-area">
+                <div class="enemy-card" id="enemy-card">
+                  <div class="enemy-name" id="enemy-name">未知敌人</div>
+                  <div class="enemy-level" id="enemy-level">Lv.1</div>
+                  <div class="enemy-health">
+                    <div class="stat-bar-header">
+                      <span>HP</span>
+                      <span id="enemy-hp-display">? / ?</span>
+                    </div>
+                    <div class="stat-bar-track">
+                      <div class="stat-bar-fill health" id="enemy-hp-bar" style="width: 100%"></div>
+                    </div>
+                  </div>
+                  <div class="enemy-intent" id="enemy-intent">
+                    <svg class="intent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span class="intent-value" id="intent-value">?</span>
+                  </div>
+                </div>
+              </div>
+              <div class="player-area">
+                <div class="player-status">
+                  <div class="status-item">
+                    <span class="status-icon">❤️</span>
+                    <span id="battle-hp">80</span>
+                  </div>
+                  <div class="status-item">
+                    <span class="status-icon">🛡️</span>
+                    <span id="battle-block">0</span>
+                  </div>
+                  <div class="energy-display">
+                    <div class="energy-orb" id="energy-current">3</div>
+                    <span>/ <span id="energy-max">3</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pile-info">
+              <div class="pile-item">
+                <span>📚</span>
+                <span>抽牌堆: <span class="pile-count" id="draw-pile-count">0</span></span>
+              </div>
+              <div class="pile-item">
+                <span>🗑️</span>
+                <span>弃牌堆: <span class="pile-count" id="discard-pile-count">0</span></span>
+              </div>
+            </div>
+
+            <div class="hand-area">
+              <div class="hand-label">手牌</div>
+              <div class="hand-cards" id="hand-cards"></div>
+            </div>
+
+            <div class="battle-actions">
+              <button class="btn btn-primary" id="btn-end-turn">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 18px; height: 18px"
+                >
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                结束回合
+              </button>
+            </div>
+
+            <div class="combat-log" id="combat-log"></div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         设置界面
+         ============================================================ -->
+    <div id="page-settings" class="page">
+      <div class="glass-panel settings-container">
+        <div class="decorative-border top-left"></div>
+        <div class="decorative-border top-right"></div>
+        <div class="decorative-border bottom-left"></div>
+        <div class="decorative-border bottom-right"></div>
+
+        <h2 class="page-title">游戏设置</h2>
+
+        <!-- API 管理中心 -->
+        <div class="settings-section collapsible">
+          <div class="section-header" id="ai-settings-header">
+            <h3 class="section-title">
+              <svg
+                class="collapse-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 16px; height: 16px"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+              🔌 API 管理中心
+            </h3>
+            <span class="section-status" id="ai-config-status">未配置</span>
+          </div>
+          <div class="section-content collapsed" id="ai-settings-content">
+            <!-- 使用酒馆API选项 -->
+            <div class="input-group tavern-api-toggle">
+              <label class="toggle-label">
+                <input type="checkbox" id="use-tavern-api" />
+                <span class="toggle-text">使用酒馆默认 API（全局）</span>
+              </label>
+              <p class="input-hint">启用后所有API调用将使用酒馆当前配置，无需填写下方配置</p>
+            </div>
+
+            <!-- 酒馆模型信息显示 -->
+            <div class="input-group tavern-model-info" id="tavern-model-info" style="display: none">
+              <label>当前酒馆模型</label>
+              <div class="tavern-model-display">
+                <span id="tavern-model-name">未获取</span>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-small"
+                  id="btn-refresh-tavern-model"
+                  title="刷新模型信息"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    style="width: 14px; height: 14px"
+                  >
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                  </svg>
+                  刷新
+                </button>
+              </div>
+            </div>
+
+            <!-- 自定义API配置区域 -->
+            <div id="custom-api-config">
+              <!-- API配置标签页 -->
+              <div class="api-profile-tabs">
+                <button class="api-profile-tab active" data-profile="main">
+                  <span class="tab-icon">💬</span>
+                  <span class="tab-name">主API</span>
+                  <span class="tab-hint">叙事/对话</span>
+                </button>
+                <button class="api-profile-tab" data-profile="map">
+                  <span class="tab-icon">🗺️</span>
+                  <span class="tab-name">地图API</span>
+                  <span class="tab-hint">地图生成</span>
+                </button>
+              </div>
+
+              <!-- 主API配置面板 -->
+              <div class="api-profile-panel active" id="api-profile-main">
+                <div class="profile-header">
+                  <h4>主API配置（叙事/对话）</h4>
+                  <p class="profile-desc">用于生成剧情叙事、角色对话等核心内容</p>
+                </div>
+
+                <div class="input-group">
+                  <label for="api-format">API 格式</label>
+                  <select id="api-format" class="input-field">
+                    <option value="openai" selected>OpenAI 格式（推荐，兼容大多数中转）</option>
+                    <option value="anthropic">Claude 格式（Anthropic 官方）</option>
+                    <option value="gemini">Gemini 格式（Google AI）</option>
+                    <option value="deepseek">DeepSeek 格式（OpenAI 兼容）</option>
+                  </select>
+                  <p class="input-hint">选择 API 接口格式。大多数第三方中转服务使用 OpenAI 格式。</p>
+                </div>
+                <div class="input-group">
+                  <label for="api-endpoint">API 端点 <span class="optional-hint">（留空使用官方地址）</span></label>
+                  <input
+                    type="text"
+                    id="api-endpoint"
+                    class="input-field"
+                    placeholder="留空使用官方地址，或输入自定义端点"
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="api-key">API 密钥</label>
+                  <div class="input-with-toggle">
+                    <input type="password" id="api-key" class="input-field" placeholder="sk-..." />
+                    <button type="button" class="toggle-visibility" id="btn-toggle-key" title="显示/隐藏密钥">
+                      <svg
+                        class="icon-eye"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        style="width: 18px; height: 18px"
+                      >
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label for="model-name">模型名称</label>
+                  <div class="input-with-dropdown">
+                    <input type="text" id="model-name" class="input-field" placeholder="输入模型名称" />
+                    <button type="button" class="dropdown-trigger" id="btn-model-dropdown" title="获取可用模型列表">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        style="width: 16px; height: 16px"
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu" id="model-dropdown">
+                      <div class="dropdown-item" data-action="fetch">🔄 获取可用模型列表</div>
+                      <div id="model-loading" class="dropdown-loading" style="display: none">加载中...</div>
+                      <div id="model-list-container"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 通用参数 -->
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label>最大 Token</label>
+                    <span class="slider-value" id="token-value">4096</span>
+                  </div>
+                  <input type="range" id="max-tokens" min="1024" max="128000" step="1024" value="4096" />
+                </div>
+
+                <!-- OpenAI/DeepSeek 格式参数 -->
+                <div id="params-openai" class="api-format-params">
+                  <div class="input-group">
+                    <label for="temperature">温度 (temperature)</label>
+                    <input type="number" id="temperature" class="input-field" min="0" max="2" step="0.1" value="0.7" />
+                    <p class="input-hint">控制输出的随机性，范围 0-2。0 表示确定性输出，2 表示最大随机性</p>
+                  </div>
+                  <div class="input-group">
+                    <label for="top-p-openai">Top P</label>
+                    <input type="number" id="top-p-openai" class="input-field" min="0" max="1" step="0.05" value="1.0" />
+                    <p class="input-hint">核采样参数，范围 0-1。控制输出的多样性，建议与温度二选一调整</p>
+                  </div>
+                  <div class="input-group">
+                    <label for="frequency-penalty">频率惩罚 (frequency_penalty)</label>
+                    <input type="number" id="frequency-penalty" class="input-field" min="-2" max="2" step="0.1" value="0.0" />
+                    <p class="input-hint">范围 -2 到 2。降低重复词汇的出现频率，正值减少重复，负值增加重复</p>
+                  </div>
+                  <div class="input-group">
+                    <label for="presence-penalty">存在惩罚 (presence_penalty)</label>
+                    <input type="number" id="presence-penalty" class="input-field" min="-2" max="2" step="0.1" value="0.0" />
+                    <p class="input-hint">范围 -2 到 2。鼓励谈论新话题，正值增加话题多样性，负值保持话题集中</p>
+                  </div>
+                </div>
+
+                <!-- Anthropic (Claude) 格式参数 -->
+                <div id="params-anthropic" class="api-format-params" style="display: none">
+                  <div class="slider-group">
+                    <div class="slider-header">
+                      <label>温度 (temperature)</label>
+                      <span class="slider-value" id="temp-value-anthropic">1.0</span>
+                    </div>
+                    <input type="range" id="temperature-anthropic" min="0" max="1" step="0.1" value="1.0" />
+                    <p class="input-hint">Claude 温度范围 0-1，默认 1.0</p>
+                  </div>
+                </div>
+
+                <!-- Gemini 格式参数 -->
+                <div id="params-gemini" class="api-format-params" style="display: none">
+                  <div class="slider-group">
+                    <div class="slider-header">
+                      <label>温度 (temperature)</label>
+                      <span class="slider-value" id="temp-value-gemini">1.0</span>
+                    </div>
+                    <input type="range" id="temperature-gemini" min="0" max="2" step="0.1" value="1.0" />
+                    <p class="input-hint">Gemini 温度范围 0-2，默认 1.0</p>
+                  </div>
+                  <div class="slider-group">
+                    <div class="slider-header">
+                      <label>Top P</label>
+                      <span class="slider-value" id="top-p-value">0.95</span>
+                    </div>
+                    <input type="range" id="top-p" min="0" max="1" step="0.05" value="0.95" />
+                    <p class="input-hint">核采样参数，控制输出的多样性</p>
+                  </div>
+                  <div class="slider-group">
+                    <div class="slider-header">
+                      <label>Top K</label>
+                      <span class="slider-value" id="top-k-value">40</span>
+                    </div>
+                    <input type="range" id="top-k" min="1" max="100" step="1" value="40" />
+                    <p class="input-hint">限制每步采样的候选词数量</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 地图API配置面板 -->
+              <div class="api-profile-panel" id="api-profile-map">
+                <div class="profile-header">
+                  <h4>地图API配置</h4>
+                  <p class="profile-desc">用于生成和更新动态地图数据</p>
+                </div>
+
+                <!-- 复用主API选项 -->
+                <div class="input-group use-main-api-toggle">
+                  <label class="toggle-label">
+                    <input type="checkbox" id="map-use-main-api" checked />
+                    <span class="toggle-text">复用主API配置</span>
+                  </label>
+                  <p class="input-hint">启用后将使用主API的配置，仅可调整最大Token数</p>
+                </div>
+
+                <!-- 复用主API时的简化配置 -->
+                <div id="map-api-simple-config">
+                  <div class="reuse-info">
+                    <span class="reuse-icon">🔗</span>
+                    <span class="reuse-text">当前复用主API配置</span>
+                  </div>
+                  <div class="slider-group">
+                    <div class="slider-header">
+                      <label>最大 Token（地图专用）</label>
+                      <span class="slider-value" id="map-token-value-simple">2000</span>
+                    </div>
+                    <input type="range" id="map-max-tokens-simple" min="512" max="8000" step="256" value="2000" />
+                    <p class="input-hint">地图生成通常不需要太多Token，建议2000-4000</p>
+                  </div>
+                </div>
+
+                <!-- 独立配置区域 -->
+                <div id="map-api-full-config" style="display: none">
+                  <div class="input-group">
+                    <label for="map-api-format">API 格式</label>
+                    <select id="map-api-format" class="input-field">
+                      <option value="openai" selected>OpenAI 格式（推荐）</option>
+                      <option value="anthropic">Claude 格式</option>
+                      <option value="gemini">Gemini 格式</option>
+                      <option value="deepseek">DeepSeek 格式</option>
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <label for="map-api-endpoint">API 端点</label>
+                    <input
+                      type="text"
+                      id="map-api-endpoint"
+                      class="input-field"
+                      placeholder="留空使用官方地址"
+                    />
+                  </div>
+                  <div class="input-group">
+                    <label for="map-api-key">API 密钥</label>
+                    <div class="input-with-toggle">
+                      <input type="password" id="map-api-key" class="input-field" placeholder="sk-..." />
+                      <button type="button" class="toggle-visibility" id="btn-toggle-map-key" title="显示/隐藏密钥">
+                        <svg
+                          class="icon-eye"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          style="width: 18px; height: 18px"
+                        >
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <label for="map-model-name">模型名称</label>
+                    <input type="text" id="map-model-name" class="input-field" placeholder="gpt-4" />
+                  </div>
+                  <div class="slider-group">
+                    <div class="slider-header">
+                      <label>最大 Token</label>
+                      <span class="slider-value" id="map-token-value">2000</span>
+                    </div>
+                    <input type="range" id="map-max-tokens" min="512" max="8000" step="256" value="2000" />
+                  </div>
+                  <div class="input-group">
+                    <label for="map-temperature">温度</label>
+                    <input type="number" id="map-temperature" class="input-field" min="0" max="2" step="0.1" value="0.7" />
+                  </div>
+                  <div class="input-group">
+                    <label for="map-top-p">Top P</label>
+                    <input type="number" id="map-top-p" class="input-field" min="0" max="1" step="0.05" value="1.0" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- API操作按钮 -->
+            <div class="api-actions">
+              <button class="btn btn-primary btn-small" id="btn-save-ai-settings">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                  <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                  <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                保存设置
+              </button>
+              <button class="btn btn-secondary btn-small" id="btn-test-api">测试连接</button>
+              <button class="btn btn-ghost btn-small" id="btn-reset-api">重置</button>
+            </div>
+
+            <!-- 导入/导出按钮 -->
+            <div class="api-import-export">
+              <button class="btn btn-ghost btn-small" id="btn-export-api-config">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                导出配置
+              </button>
+              <button class="btn btn-ghost btn-small" id="btn-import-api-config">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                导入配置
+              </button>
+              <input type="file" id="api-config-import-input" accept=".json" style="display: none" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 界面设置 -->
+        <div class="settings-section collapsible">
+          <div class="section-header" id="ui-settings-header">
+            <h3 class="section-title">
+              <svg
+                class="collapse-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 16px; height: 16px"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+              🎨 界面设置
+            </h3>
+            <span class="section-status" id="ui-theme-status">默认主题</span>
+          </div>
+          <div class="section-content collapsed" id="ui-settings-content">
+            <p class="section-description">自定义游戏界面的外观和风格</p>
+
+            <div class="theme-selector-group">
+              <label class="theme-label">主题风格</label>
+              <div class="theme-options">
+                <button class="theme-option active" data-theme="default" title="羊皮纸风格（默认）">
+                  <div class="theme-preview theme-default"></div>
+                  <span class="theme-name">羊皮纸</span>
+                </button>
+                <button class="theme-option" data-theme="dark" title="深邃暗黑风格">
+                  <div class="theme-preview theme-dark"></div>
+                  <span class="theme-name">暗黑</span>
+                </button>
+                <button class="theme-option" data-theme="light" title="现代明亮风格">
+                  <div class="theme-preview theme-light"></div>
+                  <span class="theme-name">明亮</span>
+                </button>
+                <button class="theme-option" data-theme="scifi" title="赛博朋克霓虹风格">
+                  <div class="theme-preview theme-scifi"></div>
+                  <span class="theme-name">科幻</span>
+                </button>
+                <button class="theme-option" data-theme="elegant" title="复古优雅紫金风格">
+                  <div class="theme-preview theme-elegant"></div>
+                  <span class="theme-name">典雅</span>
+                </button>
+                <button class="theme-option" data-theme="pink" title="柔和粉色少女风格">
+                  <div class="theme-preview theme-pink"></div>
+                  <span class="theme-name">粉嫩</span>
+                </button>
+                <button class="theme-option" data-theme="green" title="清新自然绿色风格">
+                  <div class="theme-preview theme-green"></div>
+                  <span class="theme-name">青葱</span>
+                </button>
+              </div>
+              <p class="input-hint" style="margin-top: 8px; text-align: center;">主题会自动保存</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 变量设置 -->
+        <div class="settings-section collapsible">
+          <div class="section-header" id="variables-settings-header">
+            <h3 class="section-title">
+              <svg
+                class="collapse-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 16px; height: 16px"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+              ⚙️ 变量设置
+            </h3>
+            <span class="section-status">管理游戏变量</span>
+          </div>
+          <div class="section-content collapsed" id="variables-settings-content">
+            <p class="section-description">管理游戏变量、敌人信息、角色状态和世界书</p>
+            <div class="variables-quick-access">
+              <button class="btn btn-secondary btn-small" id="btn-open-variables">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                打开变量编辑器
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 总结功能设置 -->
+        <div class="settings-section collapsible">
+          <div class="section-header" id="summary-settings-header">
+            <h3 class="section-title">
+              <svg
+                class="collapse-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="width: 16px; height: 16px"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+              📜 剧情总结
+            </h3>
+            <span class="section-status" id="summary-status">0 条记录</span>
+          </div>
+          <div class="section-content collapsed" id="summary-settings-content">
+            <p class="section-description">管理剧情总结，自动或手动记录重要剧情节点</p>
+
+            <!-- 总结统计 -->
+            <div class="summary-stats">
+              <div class="summary-stat-item">
+                <span class="stat-icon">📖</span>
+                <span class="stat-label">大总结</span>
+                <span class="stat-value" id="big-summary-count">0</span>
+              </div>
+              <div class="summary-stat-item">
+                <span class="stat-icon">📝</span>
+                <span class="stat-label">小总结</span>
+                <span class="stat-value" id="small-summary-count">0</span>
+              </div>
+            </div>
+
+            <!-- 自动总结设置 -->
+            <div class="summary-config-group">
+              <h5>自动总结设置</h5>
+              <div class="config-item">
+                <input type="checkbox" id="summary-auto-gen-toggle" checked />
+                <label for="summary-auto-gen-toggle">启用自动生成总结</label>
+              </div>
+              <div class="config-row">
+                <label for="summary-max-small">最大小总结数量:</label>
+                <input
+                  type="number"
+                  id="summary-max-small"
+                  class="input-field input-small"
+                  value="10"
+                  min="1"
+                  max="50"
+                />
+              </div>
+              <div class="config-row">
+                <label for="summary-merge-threshold">合并为大总结的阈值:</label>
+                <input
+                  type="number"
+                  id="summary-merge-threshold"
+                  class="input-field input-small"
+                  value="10"
+                  min="1"
+                  max="30"
+                />
+              </div>
+            </div>
+
+            <!-- 手动总结设置 -->
+            <div class="summary-config-group">
+              <h5>手动总结设置</h5>
+              <div class="config-item">
+                <input type="checkbox" id="summary-enable-manual" checked />
+                <label for="summary-enable-manual">启用手动补充小总结功能</label>
+              </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="summary-actions-row">
+              <button class="btn btn-secondary btn-small" id="btn-view-big-summaries">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                查看大总结
+              </button>
+              <button class="btn btn-secondary btn-small" id="btn-view-small-summaries">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                查看小总结
+              </button>
+              <button class="btn btn-secondary btn-small" id="btn-edit-summary-prompts">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                编辑总结提示词
+              </button>
+              <button class="btn btn-secondary btn-small" id="btn-export-summaries">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                导出总结
+              </button>
+              <button class="btn btn-ghost btn-small" id="btn-clear-summaries">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                清空总结
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" id="btn-back-from-settings">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            返回
+          </button>
+          <button class="btn btn-primary" id="btn-quick-save">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            快速保存
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         变量设置界面
+         ============================================================ -->
+    <div id="page-variables" class="page">
+      <div class="glass-panel variables-container">
+        <div class="decorative-border top-left"></div>
+        <div class="decorative-border top-right"></div>
+        <div class="decorative-border bottom-left"></div>
+        <div class="decorative-border bottom-right"></div>
+
+        <h2 class="page-title">变量设置</h2>
+        <p class="page-subtitle">管理游戏变量、敌人信息、角色状态和世界书</p>
+
+        <div class="variables-tabs">
+          <button class="variables-tab active" data-tab="status">📊 角色状态</button>
+          <button class="variables-tab" data-tab="clothing">👔 服装</button>
+          <button class="variables-tab" data-tab="enemy">👹 敌人</button>
+          <button class="variables-tab" data-tab="battle">⚔️ 战斗</button>
+          <button class="variables-tab" data-tab="worldbook">📚 世界书</button>
+          <button class="variables-tab" data-tab="prompts">📝 提示词</button>
+        </div>
+
+        <div class="variables-content-wrapper">
+          <div class="variables-content active" id="variables-status">
+            <div id="status-preview" class="preview-container"></div>
+          </div>
+          <div class="variables-content" id="variables-clothing">
+            <div id="clothing-preview" class="preview-container"></div>
+          </div>
+          <div class="variables-content" id="variables-enemy">
+            <div id="enemy-preview" class="preview-container"></div>
+          </div>
+          <div class="variables-content" id="variables-battle">
+            <div id="battle-preview" class="preview-container"></div>
+          </div>
+          <div class="variables-content" id="variables-worldbook">
+            <div id="worldbook-section" class="preview-container"></div>
+          </div>
+          <div class="variables-content" id="variables-prompts">
+            <div id="prompts-section" class="preview-container"></div>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" id="btn-back-from-variables">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            返回设置
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         JavaScript 模块加载
+         重要：旧版核心模块必须先于新架构模块加载，以确保兼容性
+         ============================================================ -->
+
+    <!-- 模态框动态创建模块（必须最先加载） -->
+    <script src="modals.js"></script>
+
+    <!-- 旧版核心模块（必须最先加载，提供基础功能） -->
+    <script src="state.js"></script>
+    <script src="utils.js"></script>
+    <script src="storage.js"></script>
+
+    <!-- 核心模块（新架构，加载后会适配旧版） -->
+    <script src="EventBus.js"></script>
+    <script src="StateManager.js"></script>
+    <script src="DOMManager.js"></script>
+    <script src="Router.js"></script>
+    <script src="Component.js"></script>
+
+    <!-- 系统模块 -->
+    <script src="cardDataNew.js"></script>
+    <script src="card.js"></script>
+    <script src="enemy.js"></script>
+    <script src="battle.js"></script>
+    <script src="narrative.js"></script>
+    <script src="initialization.js"></script>
+    
+    <!-- 动态地图模块 -->
+    <script src="mapApi.js"></script>
+    <script src="mapRenderer.js"></script>
+
+    <!-- UI模块 -->
+    <script src="home.js"></script>
+    <script src="character.js"></script>
+    <script src="world.js"></script>
+    <script src="game.js"></script>
+    <script src="deck.js"></script>
+    <script src="settings.js"></script>
+    <script src="variables.js"></script>
+    <script src="summary.js"></script>
+
+    <!-- 应用入口 -->
+    <script src="app.js"></script>
+  </body>
+</html>

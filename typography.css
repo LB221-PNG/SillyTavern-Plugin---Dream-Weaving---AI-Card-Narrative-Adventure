@@ -1,0 +1,84 @@
+/* ============================================================
+ * 克劳德 - AI卡牌叙事冒险
+ * 排版样式 (Typography)
+ * ============================================================ */
+
+/* ============================================================
+ * 标题样式
+ * ============================================================ */
+
+h1,
+h2,
+h3 {
+  font-family: 'Cinzel', 'Noto Serif SC', serif;
+  color: var(--ink-primary);
+  text-shadow: 1px 1px 2px rgba(201, 162, 39, 0.2);
+}
+
+.title-main {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-accent) 50%, var(--gold-light) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+}
+
+.section-title {
+  font-size: 1.3rem;
+  color: var(--ink-secondary);
+  margin: 2rem 0 1rem;
+  padding-left: 15px;
+  border-left: 3px solid var(--gold-accent);
+}
+
+.page-subtitle {
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* ============================================================
+ * 图标
+ * ============================================================ */
+
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============================================================
+ * 版本信息
+ * ============================================================ */
+
+.version-info {
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  opacity: 0.7;
+}

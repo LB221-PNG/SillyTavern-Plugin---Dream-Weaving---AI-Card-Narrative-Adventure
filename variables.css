@@ -1,0 +1,949 @@
+/* ============================================================
+ * 克劳德 - AI卡牌叙事冒险
+ * CSS变量系统 (CSS Variables)
+ * ============================================================ */
+
+:root {
+  /* ============================================================
+   * 颜色系统
+   * ============================================================ */
+
+  /* 羊皮纸配色 */
+  --parchment-light: #f4e4bc;
+  --parchment-base: #e8d5a3;
+  --parchment-dark: #d4c089;
+
+  /* 墨水配色 */
+  --ink-primary: #2c1810;
+  --ink-secondary: #4a3728;
+  --ink-muted: #6b5344;
+
+  /* 金色强调 */
+  --gold-accent: #c9a227;
+  --gold-light: #e8c547;
+  --gold-dark: #8b7019;
+
+  /* 功能色 */
+  --blood-red: #8b1e1e;
+  --emerald: #2d5a3d;
+  --sapphire: #1e3a5f;
+  --energy-blue: #4a90d9;
+  --health-red: #c44536;
+
+  /* ============================================================
+   * 玻璃态效果
+   * ============================================================ */
+  --glass-white: rgba(255, 255, 255, 0.15);
+  --glass-blur: blur(12px);
+
+  /* ============================================================
+   * 阴影系统
+   * ============================================================ */
+  --shadow-soft: 0 4px 20px rgba(44, 24, 16, 0.15);
+  --shadow-medium: 0 8px 32px rgba(44, 24, 16, 0.2);
+  --shadow-strong: 0 12px 48px rgba(44, 24, 16, 0.25);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* ============================================================
+   * 圆角系统
+   * ============================================================ */
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+
+  /* ============================================================
+   * 过渡动画
+   * ============================================================ */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* ============================================================
+   * 间距系统
+   * ============================================================ */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}
+
+/* ============================================================
+ * 主题配色方案
+ * ============================================================ */
+
+/* 暗黑主题 (Dark Theme) */
+[data-theme='dark'] {
+  /* 背景色 */
+  --parchment-light: #1a1a2e;
+  --parchment-base: #16213e;
+  --parchment-dark: #0f0f1a;
+
+  /* 墨水配色 (反转) */
+  --ink-primary: #e8e8e8;
+  --ink-secondary: #c0c0c0;
+  --ink-muted: #888888;
+
+  /* 金色强调 (调整亮度) */
+  --gold-accent: #ffd700;
+  --gold-light: #ffe44d;
+  --gold-dark: #b8960f;
+
+  /* 功能色调整 */
+  --blood-red: #ff6b6b;
+  --emerald: #4ecca3;
+  --sapphire: #6c9bcf;
+  --energy-blue: #74b9ff;
+  --health-red: #ff7675;
+
+  /* 玻璃态效果 */
+  --glass-white: rgba(255, 255, 255, 0.08);
+  
+  /* 阴影系统 */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-strong: 0 12px 48px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* 明亮主题 (Light Theme) */
+[data-theme='light'] {
+  /* 背景色 */
+  --parchment-light: #ffffff;
+  --parchment-base: #f8f9fa;
+  --parchment-dark: #e9ecef;
+
+  /* 墨水配色 */
+  --ink-primary: #212529;
+  --ink-secondary: #495057;
+  --ink-muted: #6c757d;
+
+  /* 强调色 (使用蓝色系) */
+  --gold-accent: #0d6efd;
+  --gold-light: #3d8bfd;
+  --gold-dark: #0a58ca;
+
+  /* 功能色调整 */
+  --blood-red: #dc3545;
+  --emerald: #198754;
+  --sapphire: #0d6efd;
+  --energy-blue: #0dcaf0;
+  --health-red: #dc3545;
+
+  /* 玻璃态效果 */
+  --glass-white: rgba(255, 255, 255, 0.9);
+  
+  /* 阴影系统 */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-strong: 0 12px 48px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================================
+ * 动画关键帧
+ * ============================================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes parchment-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes slideOutLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+/* ============================================================
+ * 全局主题覆盖样式
+ * 覆盖硬编码颜色值，确保主题切换影响所有元素
+ * ============================================================ */
+
+/* 暗黑主题全局覆盖 */
+[data-theme='dark'] {
+  /* 页面背景 */
+  background-color: var(--parchment-base) !important;
+}
+
+[data-theme='dark'] body {
+  background: linear-gradient(135deg, var(--parchment-dark) 0%, var(--parchment-base) 50%, var(--parchment-dark) 100%) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='dark'] .page {
+  background: linear-gradient(180deg, var(--parchment-base) 0%, var(--parchment-dark) 100%) !important;
+}
+
+[data-theme='dark'] .glass-panel,
+[data-theme='dark'] .panel {
+  background: rgba(22, 33, 62, 0.95) !important;
+  border-color: rgba(255, 215, 0, 0.3) !important;
+}
+
+[data-theme='dark'] .modal-content,
+[data-theme='dark'] .modal {
+  background: linear-gradient(145deg, var(--parchment-base) 0%, var(--parchment-dark) 100%) !important;
+  border-color: var(--gold-accent) !important;
+}
+
+[data-theme='dark'] .input-field,
+[data-theme='dark'] input,
+[data-theme='dark'] textarea,
+[data-theme='dark'] select {
+  background: rgba(15, 15, 26, 0.9) !important;
+  border-color: rgba(255, 215, 0, 0.3) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='dark'] .input-field:focus,
+[data-theme='dark'] input:focus,
+[data-theme='dark'] textarea:focus,
+[data-theme='dark'] select:focus {
+  border-color: var(--gold-accent) !important;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2) !important;
+}
+
+[data-theme='dark'] .btn-secondary,
+[data-theme='dark'] .button-secondary {
+  background: rgba(26, 26, 46, 0.9) !important;
+  border-color: rgba(255, 215, 0, 0.4) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='dark'] .btn-primary,
+[data-theme='dark'] .button-primary {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+  color: #0f0f1a !important;
+}
+
+[data-theme='dark'] .settings-section,
+[data-theme='dark'] .card,
+[data-theme='dark'] .game-card {
+  background: rgba(22, 33, 62, 0.8) !important;
+  border-color: rgba(255, 215, 0, 0.2) !important;
+}
+
+[data-theme='dark'] .settings-section-header {
+  background: rgba(15, 15, 26, 0.6) !important;
+  border-color: rgba(255, 215, 0, 0.2) !important;
+}
+
+[data-theme='dark'] .sidebar,
+[data-theme='dark'] .sidebar-toggle-btn {
+  background: rgba(22, 33, 62, 0.98) !important;
+  border-color: rgba(255, 215, 0, 0.3) !important;
+}
+
+[data-theme='dark'] .toast {
+  background: rgba(26, 26, 46, 0.98) !important;
+  border-color: var(--gold-accent) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='dark'] .narrative-text,
+[data-theme='dark'] .story-text {
+  background: rgba(15, 15, 26, 0.7) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='dark'] .archive-item,
+[data-theme='dark'] .save-slot {
+  background: rgba(22, 33, 62, 0.9) !important;
+  border-color: rgba(255, 215, 0, 0.2) !important;
+}
+
+[data-theme='dark'] .archive-item:hover,
+[data-theme='dark'] .save-slot:hover {
+  background: rgba(26, 26, 46, 0.95) !important;
+  border-color: var(--gold-accent) !important;
+}
+
+[data-theme='dark'] hr,
+[data-theme='dark'] .divider {
+  border-color: rgba(255, 215, 0, 0.2) !important;
+}
+
+[data-theme='dark'] ::placeholder {
+  color: var(--ink-muted) !important;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background: var(--parchment-dark) !important;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+}
+
+[data-theme='dark'] .btn-primary {
+  box-shadow:
+    0 4px 15px rgba(255, 215, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme='dark'] .btn-primary:hover {
+  box-shadow:
+    0 6px 25px rgba(255, 215, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme='dark'] .btn-secondary {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme='dark'] .btn-secondary:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme='dark'] .sender-btn-primary {
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4) !important;
+}
+
+[data-theme='dark'] .sender-btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5) !important;
+}
+
+/* 明亮主题全局覆盖 */
+[data-theme='light'] {
+  background-color: var(--parchment-base) !important;
+}
+
+[data-theme='light'] body {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='light'] .page {
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%) !important;
+}
+
+[data-theme='light'] .glass-panel,
+[data-theme='light'] .panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(13, 110, 253, 0.2) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme='light'] .modal-content,
+[data-theme='light'] .modal {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%) !important;
+  border-color: var(--gold-accent) !important;
+}
+
+[data-theme='light'] .input-field,
+[data-theme='light'] input,
+[data-theme='light'] textarea,
+[data-theme='light'] select {
+  background: #ffffff !important;
+  border-color: #dee2e6 !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='light'] .input-field:focus,
+[data-theme='light'] input:focus,
+[data-theme='light'] textarea:focus,
+[data-theme='light'] select:focus {
+  border-color: var(--gold-accent) !important;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15) !important;
+}
+
+[data-theme='light'] .btn-secondary,
+[data-theme='light'] .button-secondary {
+  background: #ffffff !important;
+  border-color: #dee2e6 !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='light'] .btn-secondary:hover,
+[data-theme='light'] .button-secondary:hover {
+  background: #f8f9fa !important;
+  border-color: var(--gold-accent) !important;
+}
+
+[data-theme='light'] .btn-primary,
+[data-theme='light'] .button-primary {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+  color: #ffffff !important;
+}
+
+[data-theme='light'] .settings-section,
+[data-theme='light'] .card,
+[data-theme='light'] .game-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: #dee2e6 !important;
+}
+
+[data-theme='light'] .settings-section-header {
+  background: rgba(248, 249, 250, 0.8) !important;
+  border-color: #dee2e6 !important;
+}
+
+[data-theme='light'] .sidebar,
+[data-theme='light'] .sidebar-toggle-btn {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: #dee2e6 !important;
+}
+
+[data-theme='light'] .toast {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: var(--gold-accent) !important;
+  color: var(--ink-primary) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme='light'] .narrative-text,
+[data-theme='light'] .story-text {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='light'] .archive-item,
+[data-theme='light'] .save-slot {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #dee2e6 !important;
+}
+
+[data-theme='light'] .archive-item:hover,
+[data-theme='light'] .save-slot:hover {
+  background: #f8f9fa !important;
+  border-color: var(--gold-accent) !important;
+}
+
+[data-theme='light'] hr,
+[data-theme='light'] .divider {
+  border-color: #dee2e6 !important;
+}
+
+[data-theme='light'] ::placeholder {
+  color: #adb5bd !important;
+}
+
+[data-theme='light'] ::-webkit-scrollbar-track {
+  background: #f8f9fa !important;
+}
+
+[data-theme='light'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+}
+
+[data-theme='light'] .btn-primary {
+  box-shadow:
+    0 4px 15px rgba(13, 110, 253, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme='light'] .btn-primary:hover {
+  box-shadow:
+    0 6px 25px rgba(13, 110, 253, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme='light'] .btn-secondary {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme='light'] .btn-secondary:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-theme='light'] .sender-btn-primary {
+  box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3) !important;
+}
+
+[data-theme='light'] .sender-btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4) !important;
+}
+
+/* ============================================================
+ * 科幻主题 (Sci-Fi Theme)
+ * 赛博朋克风格，霓虹色彩
+ * ============================================================ */
+[data-theme='scifi'] {
+  /* 背景色 - 深蓝黑色 */
+  --parchment-light: #0a1628;
+  --parchment-base: #0d1f3c;
+  --parchment-dark: #061018;
+
+  /* 墨水配色 */
+  --ink-primary: #e0f7ff;
+  --ink-secondary: #a8d8ea;
+  --ink-muted: #6b9bb8;
+
+  /* 霓虹青色强调 */
+  --gold-accent: #00f5ff;
+  --gold-light: #7dffff;
+  --gold-dark: #00b8c4;
+
+  /* 功能色 - 霓虹风格 */
+  --blood-red: #ff0055;
+  --emerald: #00ff88;
+  --sapphire: #0088ff;
+  --energy-blue: #00d4ff;
+  --health-red: #ff3366;
+
+  /* 玻璃态效果 */
+  --glass-white: rgba(0, 245, 255, 0.08);
+  
+  /* 阴影系统 - 霓虹光晕 */
+  --shadow-soft: 0 4px 20px rgba(0, 245, 255, 0.2);
+  --shadow-medium: 0 8px 32px rgba(0, 245, 255, 0.25);
+  --shadow-strong: 0 12px 48px rgba(0, 245, 255, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* 科幻主题全局覆盖 */
+[data-theme='scifi'] body {
+  background: linear-gradient(135deg, #061018 0%, #0d1f3c 50%, #0a1628 100%) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='scifi'] .page {
+  background: linear-gradient(180deg, #0d1f3c 0%, #061018 100%) !important;
+}
+
+[data-theme='scifi'] .glass-panel,
+[data-theme='scifi'] .panel {
+  background: rgba(13, 31, 60, 0.95) !important;
+  border-color: rgba(0, 245, 255, 0.4) !important;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.15), inset 0 0 20px rgba(0, 245, 255, 0.05) !important;
+}
+
+[data-theme='scifi'] .modal-content,
+[data-theme='scifi'] .modal {
+  background: linear-gradient(145deg, #0d1f3c 0%, #061018 100%) !important;
+  border-color: var(--gold-accent) !important;
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.3) !important;
+}
+
+[data-theme='scifi'] .input-field,
+[data-theme='scifi'] input,
+[data-theme='scifi'] textarea,
+[data-theme='scifi'] select {
+  background: rgba(6, 16, 24, 0.9) !important;
+  border-color: rgba(0, 245, 255, 0.3) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='scifi'] .input-field:focus,
+[data-theme='scifi'] input:focus,
+[data-theme='scifi'] textarea:focus,
+[data-theme='scifi'] select:focus {
+  border-color: var(--gold-accent) !important;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.4) !important;
+}
+
+[data-theme='scifi'] .btn-primary {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+  color: #061018 !important;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.5) !important;
+}
+
+[data-theme='scifi'] .btn-secondary {
+  background: rgba(10, 22, 40, 0.9) !important;
+  border-color: rgba(0, 245, 255, 0.4) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='scifi'] .settings-section {
+  background: rgba(13, 31, 60, 0.8) !important;
+  border-color: rgba(0, 245, 255, 0.2) !important;
+}
+
+[data-theme='scifi'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+}
+
+/* ============================================================
+ * 典雅主题 (Elegant Theme)
+ * 复古优雅风格，深紫与金色
+ * ============================================================ */
+[data-theme='elegant'] {
+  /* 背景色 - 深紫色调 */
+  --parchment-light: #2d2438;
+  --parchment-base: #1f1a2e;
+  --parchment-dark: #15101f;
+
+  /* 墨水配色 */
+  --ink-primary: #f5e6d3;
+  --ink-secondary: #d4c4b0;
+  --ink-muted: #9a8b7a;
+
+  /* 金色强调 - 古典金 */
+  --gold-accent: #d4af37;
+  --gold-light: #f0d060;
+  --gold-dark: #a08020;
+
+  /* 功能色 - 典雅风格 */
+  --blood-red: #8b3a3a;
+  --emerald: #3a6b4a;
+  --sapphire: #3a4a6b;
+  --energy-blue: #6a8ab0;
+  --health-red: #a04040;
+
+  /* 玻璃态效果 */
+  --glass-white: rgba(212, 175, 55, 0.08);
+  
+  /* 阴影系统 */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-strong: 0 12px 48px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* 典雅主题全局覆盖 */
+[data-theme='elegant'] body {
+  background: linear-gradient(135deg, #15101f 0%, #1f1a2e 50%, #2d2438 100%) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='elegant'] .page {
+  background: linear-gradient(180deg, #1f1a2e 0%, #15101f 100%) !important;
+}
+
+[data-theme='elegant'] .glass-panel,
+[data-theme='elegant'] .panel {
+  background: rgba(31, 26, 46, 0.95) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme='elegant'] .modal-content,
+[data-theme='elegant'] .modal {
+  background: linear-gradient(145deg, #2d2438 0%, #1f1a2e 100%) !important;
+  border-color: var(--gold-accent) !important;
+}
+
+[data-theme='elegant'] .input-field,
+[data-theme='elegant'] input,
+[data-theme='elegant'] textarea,
+[data-theme='elegant'] select {
+  background: rgba(21, 16, 31, 0.9) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='elegant'] .btn-primary {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+  color: #15101f !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4) !important;
+}
+
+[data-theme='elegant'] .btn-secondary {
+  background: rgba(45, 36, 56, 0.9) !important;
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='elegant'] .settings-section {
+  background: rgba(31, 26, 46, 0.8) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
+}
+
+[data-theme='elegant'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+}
+
+/* ============================================================
+ * 粉嫩主题 (Pink Theme)
+ * 柔和粉色系，少女风格
+ * ============================================================ */
+[data-theme='pink'] {
+  /* 背景色 - 粉色调 */
+  --parchment-light: #fff0f5;
+  --parchment-base: #ffe4ec;
+  --parchment-dark: #ffd6e0;
+
+  /* 墨水配色 */
+  --ink-primary: #5c3d4a;
+  --ink-secondary: #7a5568;
+  --ink-muted: #a07a8a;
+
+  /* 粉色强调 */
+  --gold-accent: #ff6b9d;
+  --gold-light: #ff9ec4;
+  --gold-dark: #e84a7f;
+
+  /* 功能色 - 柔和风格 */
+  --blood-red: #e85a7a;
+  --emerald: #7ac4a5;
+  --sapphire: #7aa4c4;
+  --energy-blue: #8ab4d4;
+  --health-red: #ff7a9a;
+
+  /* 玻璃态效果 */
+  --glass-white: rgba(255, 107, 157, 0.1);
+  
+  /* 阴影系统 */
+  --shadow-soft: 0 4px 20px rgba(255, 107, 157, 0.15);
+  --shadow-medium: 0 8px 32px rgba(255, 107, 157, 0.2);
+  --shadow-strong: 0 12px 48px rgba(255, 107, 157, 0.25);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* 粉嫩主题全局覆盖 */
+[data-theme='pink'] body {
+  background: linear-gradient(135deg, #ffd6e0 0%, #ffe4ec 50%, #fff0f5 100%) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='pink'] .page {
+  background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%) !important;
+}
+
+[data-theme='pink'] .glass-panel,
+[data-theme='pink'] .panel {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(255, 107, 157, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(255, 107, 157, 0.15) !important;
+}
+
+[data-theme='pink'] .modal-content,
+[data-theme='pink'] .modal {
+  background: linear-gradient(145deg, #fff0f5 0%, #ffe4ec 100%) !important;
+  border-color: var(--gold-accent) !important;
+}
+
+[data-theme='pink'] .input-field,
+[data-theme='pink'] input,
+[data-theme='pink'] textarea,
+[data-theme='pink'] select {
+  background: #ffffff !important;
+  border-color: rgba(255, 107, 157, 0.3) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='pink'] .input-field:focus,
+[data-theme='pink'] input:focus,
+[data-theme='pink'] textarea:focus,
+[data-theme='pink'] select:focus {
+  border-color: var(--gold-accent) !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.2) !important;
+}
+
+[data-theme='pink'] .btn-primary {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4) !important;
+}
+
+[data-theme='pink'] .btn-secondary {
+  background: #ffffff !important;
+  border-color: rgba(255, 107, 157, 0.4) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='pink'] .settings-section {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(255, 107, 157, 0.2) !important;
+}
+
+[data-theme='pink'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+}
+
+/* ============================================================
+ * 青葱主题 (Green Theme)
+ * 清新绿色系，自然风格
+ * ============================================================ */
+[data-theme='green'] {
+  /* 背景色 - 绿色调 */
+  --parchment-light: #f0f9f4;
+  --parchment-base: #e0f2e8;
+  --parchment-dark: #c8e6d0;
+
+  /* 墨水配色 */
+  --ink-primary: #2d4a3a;
+  --ink-secondary: #3d5a4a;
+  --ink-muted: #5a7a6a;
+
+  /* 绿色强调 */
+  --gold-accent: #4caf50;
+  --gold-light: #81c784;
+  --gold-dark: #388e3c;
+
+  /* 功能色 - 自然风格 */
+  --blood-red: #c44536;
+  --emerald: #2e7d32;
+  --sapphire: #1976d2;
+  --energy-blue: #42a5f5;
+  --health-red: #ef5350;
+
+  /* 玻璃态效果 */
+  --glass-white: rgba(76, 175, 80, 0.1);
+  
+  /* 阴影系统 */
+  --shadow-soft: 0 4px 20px rgba(76, 175, 80, 0.15);
+  --shadow-medium: 0 8px 32px rgba(76, 175, 80, 0.2);
+  --shadow-strong: 0 12px 48px rgba(76, 175, 80, 0.25);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* 青葱主题全局覆盖 */
+[data-theme='green'] body {
+  background: linear-gradient(135deg, #c8e6d0 0%, #e0f2e8 50%, #f0f9f4 100%) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='green'] .page {
+  background: linear-gradient(180deg, #f0f9f4 0%, #e0f2e8 100%) !important;
+}
+
+[data-theme='green'] .glass-panel,
+[data-theme='green'] .panel {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(76, 175, 80, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.15) !important;
+}
+
+[data-theme='green'] .modal-content,
+[data-theme='green'] .modal {
+  background: linear-gradient(145deg, #f0f9f4 0%, #e0f2e8 100%) !important;
+  border-color: var(--gold-accent) !important;
+}
+
+[data-theme='green'] .input-field,
+[data-theme='green'] input,
+[data-theme='green'] textarea,
+[data-theme='green'] select {
+  background: #ffffff !important;
+  border-color: rgba(76, 175, 80, 0.3) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='green'] .input-field:focus,
+[data-theme='green'] input:focus,
+[data-theme='green'] textarea:focus,
+[data-theme='green'] select:focus {
+  border-color: var(--gold-accent) !important;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2) !important;
+}
+
+[data-theme='green'] .btn-primary {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4) !important;
+}
+
+[data-theme='green'] .btn-secondary {
+  background: #ffffff !important;
+  border-color: rgba(76, 175, 80, 0.4) !important;
+  color: var(--ink-primary) !important;
+}
+
+[data-theme='green'] .settings-section {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(76, 175, 80, 0.2) !important;
+}
+
+[data-theme='green'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-accent) 0%, var(--gold-dark) 100%) !important;
+}

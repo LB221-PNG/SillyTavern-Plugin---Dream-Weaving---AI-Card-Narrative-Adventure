@@ -1,0 +1,321 @@
+/* ============================================================
+ * 克劳德 - AI卡牌叙事冒险
+ * 按钮组件样式 (Button Components)
+ * ============================================================ */
+
+/* ============================================================
+ * 基础按钮
+ * ============================================================ */
+
+.btn {
+  position: relative;
+  padding: 16px 48px;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn .icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================================
+ * 按钮变体
+ * ============================================================ */
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-accent) 50%, var(--gold-dark) 100%);
+  background-size: 200% auto;
+  color: #fff;
+  box-shadow:
+    0 4px 15px rgba(201, 162, 39, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 25px rgba(201, 162, 39, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, rgba(244, 228, 188, 0.9) 0%, rgba(232, 213, 163, 0.85) 100%);
+  color: var(--ink-primary);
+  border: 1px solid var(--gold-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, rgba(255, 245, 220, 0.95) 0%, rgba(244, 228, 188, 0.9) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-secondary);
+  border: 1px solid var(--ink-muted);
+}
+
+.btn-ghost:hover {
+  background: rgba(139, 90, 43, 0.1);
+  border-color: var(--ink-secondary);
+  color: var(--ink-primary);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #c0392b 0%, #e74c3c 50%, #c0392b 100%);
+  background-size: 200% auto;
+  color: #fff;
+  border: 1px solid #a93226;
+  box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(192, 57, 43, 0.5);
+}
+
+.btn-danger:active {
+  transform: translateY(1px);
+}
+
+/* ============================================================
+ * 按钮尺寸
+ * ============================================================ */
+
+.btn-small {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+ * 图标按钮
+ * ============================================================ */
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: rgba(201, 162, 39, 0.1);
+  border: 1px solid rgba(201, 162, 39, 0.2);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--ink-secondary);
+}
+
+.btn-icon:hover {
+  background: rgba(201, 162, 39, 0.2);
+  border-color: var(--gold-accent);
+  color: var(--ink-primary);
+}
+
+.btn-icon-danger {
+  color: var(--blood-red) !important;
+}
+
+.btn-icon-danger:hover {
+  background: rgba(139, 30, 30, 0.15) !important;
+  border-color: rgba(139, 30, 30, 0.3) !important;
+}
+
+/* ============================================================
+ * 发送按钮
+ * ============================================================ */
+
+.sender-btn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  background: linear-gradient(135deg, rgba(244, 228, 188, 0.9) 0%, rgba(232, 213, 163, 0.85) 100%);
+  color: var(--ink-secondary);
+  font-size: 1em;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sender-btn:hover {
+  background: var(--gold-accent);
+  color: #fff;
+  border-color: var(--gold-dark);
+}
+
+.sender-btn-primary {
+  flex-shrink: 0;
+  width: 50px;
+  height: 40px;
+  border: 1px solid var(--gold-dark);
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-accent) 50%, var(--gold-dark) 100%);
+  background-size: 200% auto;
+  color: #fff;
+  font-size: 1.2em;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sender-btn-primary:hover {
+  background-position: right center;
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.4);
+}
+
+.sender-btn-primary:disabled {
+  background: var(--ink-muted);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ============================================================
+ * 导航按钮组
+ * ============================================================ */
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.helper-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+ * 菜单按钮
+ * ============================================================ */
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* ============================================================
+ * 侧边栏按钮
+ * ============================================================ */
+
+.sidebar-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px !important;
+  font-size: 0.85rem;
+}
+
+.sidebar-btn span {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .sidebar-btn span {
+    display: inline;
+  }
+}
+
+/* ============================================================
+ * 存档按钮
+ * ============================================================ */
+
+.archive-load-btn,
+.archive-delete-btn {
+  padding: 8px !important;
+  min-width: 36px;
+}
+
+.archive-delete-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px !important;
+  background: rgba(192, 57, 43, 0.12) !important;
+  border: 1px solid rgba(192, 57, 43, 0.35) !important;
+  color: #c0392b !important;
+  font-size: 0.85rem;
+  font-weight: 500;
+  min-width: 60px;
+}
+
+.archive-delete-btn:hover {
+  background: #c0392b !important;
+  border-color: #c0392b !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
+}
+
+.archive-export-btn {
+  background: linear-gradient(135deg, rgba(45, 90, 61, 0.15) 0%, rgba(45, 90, 61, 0.1) 100%) !important;
+  border-color: var(--emerald) !important;
+  color: var(--emerald) !important;
+}
+
+.archive-export-btn:hover {
+  background: var(--emerald) !important;
+  color: #fff !important;
+}
+
+/* ============================================================
+ * 设置存档删除按钮
+ * ============================================================ */
+
+.settings-archive-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px !important;
+  background: rgba(192, 57, 43, 0.1) !important;
+  border: 1px solid rgba(192, 57, 43, 0.3) !important;
+  color: #c0392b !important;
+  font-size: 0.85rem;
+}
+
+.settings-archive-delete-btn:hover {
+  background: #c0392b !important;
+  border-color: #c0392b !important;
+  color: #fff !important;
+}

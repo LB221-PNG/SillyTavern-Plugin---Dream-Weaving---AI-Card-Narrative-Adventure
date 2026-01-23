@@ -1,0 +1,970 @@
+/* ============================================================
+ * 克劳德 - AI卡牌叙事冒险
+ * 移动端优化样式 (Mobile Optimizations)
+ * ============================================================ */
+
+/* ============================================================
+ * 基础移动端优化
+ * ============================================================ */
+
+/* 防止iOS输入框缩放 */
+@media screen and (max-width: 768px) {
+  input[type='text'],
+  input[type='number'],
+  input[type='email'],
+  input[type='password'],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* 安全区域适配（刘海屏等） */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+
+  .page {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+
+  .message-sender-area {
+    padding-bottom: max(15px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================================
+ * 触摸友好优化 - 最小44px触摸区域
+ * ============================================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* 所有按钮最小触摸区域 */
+  .btn,
+  button,
+  [role='button'] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* 链接和可点击元素 */
+  a,
+  .clickable {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* 输入框和选择框 */
+  .input-field,
+  input,
+  select,
+  textarea {
+    min-height: 48px;
+    padding: 12px 16px;
+  }
+
+  /* 复选框容器扩大点击区域 */
+  .config-item,
+  .toggle-label {
+    min-height: 44px;
+    padding: 8px 0;
+  }
+
+  /* 下拉菜单项 */
+  .dropdown-item {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  /* 侧边栏区块头部 */
+  .section-header-mini.clickable {
+    min-height: 44px;
+    padding: 10px 0;
+  }
+
+  /* 标签页 */
+  .deck-tab,
+  .variables-tab,
+  .prompt-tab {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  /* 上下文菜单项 */
+  #message-context-menu button {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  /* FAB按钮 */
+  #fab-ball {
+    width: 56px;
+    height: 56px;
+  }
+
+  .fab-item {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* 禁用hover效果，使用active替代 */
+  .btn:hover {
+    transform: none;
+  }
+
+  .btn:active {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+}
+
+/* ============================================================
+ * 小屏幕优化 (< 768px)
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  /* 页面内边距 */
+  .page {
+    padding: 20px 12px;
+  }
+
+  #page-game {
+    padding: 10px;
+  }
+
+  /* 玻璃面板 */
+  .glass-panel {
+    border-radius: var(--border-radius-md);
+  }
+
+  /* 装饰边框缩小 */
+  .decorative-border {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* 表单容器 */
+  .form-container {
+    padding: 30px 20px;
+    max-width: 100%;
+  }
+
+  /* 页面标题 */
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* 区块标题 */
+  .section-title {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.8rem;
+  }
+
+  /* 表单行改为单列 */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* 导航按钮组 */
+  .nav-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* 辅助按钮组 */
+  .helper-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .helper-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* 侧边栏切换按钮 */
+  .sidebar-toggle-btn {
+    top: 10px;
+    left: 10px;
+    width: 48px;
+    height: 48px;
+  }
+
+  /* 侧边栏宽度 */
+  .status-sidebar {
+    width: 85vw;
+    max-width: 320px;
+  }
+
+  /* 侧边栏关闭按钮增大 */
+  .sidebar-close-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* 角色头像 */
+  .character-portrait-new {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* 侧边栏操作按钮 */
+  .sidebar-actions {
+    flex-wrap: wrap;
+  }
+
+  .sidebar-btn {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+  }
+
+  .sidebar-btn span {
+    display: none;
+  }
+
+  /* 叙事面板 */
+  .narrative-panel-new {
+    min-height: calc(100vh - 80px);
+  }
+
+  .narrative-content-new {
+    padding: 15px;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  /* 消息输入区域 */
+  .message-sender-area {
+    padding: 12px 15px;
+    gap: 8px;
+  }
+
+  #message-input {
+    padding: 10px 12px;
+    font-size: 16px;
+    max-height: 80px;
+  }
+
+  #message-input:focus {
+    max-height: 120px;
+  }
+
+  .sender-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sender-btn-primary {
+    width: 54px;
+    height: 44px;
+  }
+
+  /* 战斗面板 */
+  .battle-panel {
+    padding: 15px;
+  }
+
+  .battle-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .turn-indicator {
+    font-size: 1rem;
+  }
+
+  .battle-field {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .enemy-area,
+  .player-area {
+    padding: 15px;
+  }
+
+  .energy-display {
+    font-size: 1.1rem;
+  }
+
+  .energy-orb {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* 手牌区域 */
+  .hand-cards {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 10px 0;
+  }
+
+  /* 战斗操作按钮 */
+  .battle-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .battle-actions .btn {
+    width: 100%;
+  }
+
+  /* 堆牌信息 */
+  .pile-info {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  /* 日志条目 */
+  .log-entry {
+    padding: 10px 12px 20px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* 总结日志 */
+  .log-entry.summary {
+    padding: 20px;
+  }
+
+  .log-entry.summary h4 {
+    font-size: 1.2rem;
+  }
+
+  /* 分支选择按钮 */
+  #branch-toggle-btn {
+    width: 50px;
+    height: 28px;
+  }
+
+  /* 处理指示器 */
+  #logic-processing-indicator {
+    top: 65px;
+    left: 10px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ============================================================
+ * 超小屏幕优化 (< 480px)
+ * ============================================================ */
+
+@media (max-width: 480px) {
+  /* 主标题 */
+  .title-main {
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+  }
+
+  /* 首页容器 */
+  .home-container {
+    padding: 30px 15px;
+  }
+
+  /* 菜单按钮 */
+  .menu-buttons {
+    gap: 10px;
+  }
+
+  .menu-buttons .btn {
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+
+  /* 版本信息 */
+  .version-info {
+    font-size: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  /* 表单输入 */
+  .input-group {
+    margin-bottom: 1rem;
+  }
+
+  .input-group label {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .input-field {
+    padding: 12px 14px;
+  }
+
+  textarea.input-field {
+    min-height: 100px;
+  }
+
+  /* 滑块 */
+  .slider-group {
+    margin-bottom: 1rem;
+  }
+
+  .slider-header {
+    font-size: 0.9rem;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* 按钮尺寸 */
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+
+  .btn-small {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  /* 侧边栏 */
+  .status-sidebar {
+    width: 90vw;
+    padding: 15px;
+    padding-top: 55px;
+  }
+
+  .sidebar-section {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+
+  .character-info-new .character-name {
+    font-size: 1.1rem;
+  }
+
+  .character-info-new .character-class {
+    font-size: 0.8rem;
+  }
+
+  .mini-stat {
+    padding: 6px 8px;
+  }
+
+  .mini-stat-value {
+    font-size: 0.9rem;
+  }
+
+  /* 叙事内容 */
+  .narrative-content-new {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  /* 消息发送区 */
+  .message-sender-area {
+    padding: 10px 12px;
+  }
+
+  /* 上下文菜单 */
+  #message-context-menu {
+    max-width: calc(100vw - 20px);
+  }
+
+  #message-context-menu button {
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+
+  /* FAB容器位置 */
+  #fab-container {
+    bottom: 90px;
+    right: 15px;
+  }
+}
+
+/* ============================================================
+ * 横屏手机优化
+ * ============================================================ */
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .page {
+    padding: 15px;
+    min-height: auto;
+  }
+
+  /* 首页优化 */
+  .home-container {
+    padding: 20px 30px;
+  }
+
+  .title-main {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .subtitle {
+    margin-bottom: 1rem;
+  }
+
+  .menu-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 0.8rem;
+  }
+
+  .menu-buttons .btn {
+    flex: 0 1 auto;
+    min-width: 140px;
+    padding: 10px 20px;
+  }
+
+  /* 表单页面 */
+  .form-container {
+    padding: 20px 30px;
+  }
+
+  .page-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nav-buttons {
+    flex-direction: row;
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
+  /* 游戏界面 */
+  #page-game {
+    padding: 8px;
+  }
+
+  .sidebar-toggle-btn {
+    top: 8px;
+    left: 8px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .narrative-panel-new {
+    min-height: calc(100vh - 20px);
+  }
+
+  .narrative-content-new {
+    padding: 10px 15px;
+  }
+
+  .message-sender-area {
+    padding: 8px 12px;
+  }
+
+  #message-input {
+    max-height: 60px;
+  }
+}
+
+/* ============================================================
+ * 模态框移动端优化
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .modal,
+  .modal-overlay .modal {
+    width: calc(100vw - 24px);
+    max-width: none;
+    max-height: calc(100vh - 40px);
+    margin: 20px 12px;
+    padding: 20px 15px;
+  }
+
+  .modal h4 {
+    font-size: 1.2rem;
+  }
+
+  .modal-close-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+  }
+
+  /* 存档模态框 */
+  .archive-modal {
+    max-height: 80vh;
+  }
+
+  .archive-list-container {
+    max-height: 50vh;
+  }
+
+  .archive-item {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .archive-item-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  /* 卡组模态框 */
+  #modal-deck .modal {
+    height: 90vh;
+  }
+
+  .deck-tabs {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .deck-tab {
+    flex: 1 1 calc(50% - 4px);
+    text-align: center;
+  }
+
+  .deck-cards {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  /* 总结模态框 */
+  .summary-modal {
+    max-height: 85vh;
+  }
+
+  .summary-modal .modal-content {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .summary-prompts-tabs {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .summary-prompts-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .summary-prompts-actions .btn {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+ * 设置页面移动端优化
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .settings-container {
+    padding: 25px 15px;
+  }
+
+  .settings-section {
+    margin-bottom: 15px;
+  }
+
+  .section-header {
+    padding: 12px 0;
+  }
+
+  .section-header h3 {
+    font-size: 1rem;
+  }
+
+  .section-content {
+    padding: 15px 0;
+  }
+
+  /* API配置 */
+  .api-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .api-actions .btn {
+    width: 100%;
+  }
+
+  /* 存档管理 */
+  .save-actions-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .save-actions-row .btn,
+  .save-actions-row label {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* 总结设置 */
+  .summary-stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .summary-config-group {
+    padding: 12px;
+  }
+
+  .config-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .summary-actions-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .summary-actions-row .btn {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+ * 变量页面移动端优化
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .variables-container {
+    padding: 25px 15px;
+  }
+
+  .variables-tabs {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .variables-tab {
+    flex: 1 1 calc(33.333% - 4px);
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .variables-content-wrapper {
+    padding: 15px 0;
+  }
+
+  .preview-container {
+    padding: 15px;
+  }
+
+  .preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+ * 卡牌移动端优化
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .card {
+    min-width: 100px;
+    padding: 10px;
+  }
+
+  .card-name {
+    font-size: 0.85rem;
+  }
+
+  .card-cost {
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+  }
+
+  .card-description {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  /* 手牌区域横向滚动 */
+  .hand-area {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hand-cards {
+    display: flex;
+    gap: 8px;
+    padding: 10px 5px;
+    min-width: max-content;
+  }
+
+  .hand-cards .card {
+    flex-shrink: 0;
+    width: 110px;
+    scroll-snap-align: center;
+  }
+}
+
+/* ============================================================
+ * 触摸滚动优化
+ * ============================================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* 平滑滚动 */
+  .narrative-content,
+  .narrative-content-new,
+  .modal-content,
+  .archive-list-container,
+  .deck-cards,
+  .hand-cards,
+  .combat-log,
+  .settings-archive-list,
+  .variables-content-wrapper,
+  .dropdown-menu {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* 隐藏滚动条但保持功能 */
+  .narrative-content-new::-webkit-scrollbar,
+  .modal-content::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .narrative-content-new::-webkit-scrollbar-thumb,
+  .modal-content::-webkit-scrollbar-thumb {
+    background: rgba(201, 162, 39, 0.3);
+  }
+
+  /* 防止文本选择干扰滚动 */
+  .hand-cards,
+  .deck-cards {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* ============================================================
+ * 动画性能优化
+ * ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 使用GPU加速的动画 */
+@media (hover: none) and (pointer: coarse) {
+  .status-sidebar,
+  .sidebar-overlay,
+  .modal,
+  .overlay {
+    will-change: transform, opacity;
+  }
+
+  .btn:active,
+  .card:active {
+    transform: scale(0.95);
+  }
+}
+
+/* ============================================================
+ * Toast通知移动端优化
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .toast {
+    left: 12px;
+    right: 12px;
+    transform: translateY(100px);
+    max-width: none;
+    width: auto;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .toast.show {
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+ * 敌人卡片移动端优化
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .enemy-card {
+    padding: 15px;
+  }
+
+  .enemy-name {
+    font-size: 1.1rem;
+  }
+
+  .enemy-level {
+    font-size: 0.8rem;
+  }
+
+  .enemy-intent {
+    padding: 8px 12px;
+  }
+
+  .intent-value {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================================
+ * 玩家状态移动端优化
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .player-status {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .status-item {
+    padding: 8px 10px;
+    justify-content: center;
+  }
+
+  .status-icon {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,482 @@
+/* ============================================================
+ * 克劳德 - AI卡牌叙事冒险
+ * 输入组件样式 (Input Components)
+ * ============================================================ */
+
+/* ============================================================
+ * 输入组
+ * ============================================================ */
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+ * 基础输入框
+ * ============================================================ */
+
+.input-field {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  color: var(--ink-primary);
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.9) 0%, rgba(244, 228, 188, 0.85) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--gold-accent);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.05),
+    0 0 0 3px rgba(201, 162, 39, 0.2);
+}
+
+.input-field::placeholder {
+  color: var(--ink-muted);
+  opacity: 0.7;
+}
+
+textarea.input-field {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+select.input-field {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a3728' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+}
+
+.input-small {
+  width: 80px !important;
+  padding: 8px 12px !important;
+  text-align: center;
+}
+
+/* ============================================================
+ * 表单行
+ * ============================================================ */
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ============================================================
+ * 滑块
+ * ============================================================ */
+
+.slider-group {
+  margin-bottom: 1.5rem;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.slider-value {
+  font-weight: 600;
+  color: var(--gold-accent);
+}
+
+input[type='range'] {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(201, 162, 39, 0.2);
+  border-radius: 4px;
+  outline: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-dark) 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+
+.slider-hints {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* ============================================================
+ * 文件输入
+ * ============================================================ */
+
+.file-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.file-input-wrapper input[type='file'] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* ============================================================
+ * 消息输入区域
+ * ============================================================ */
+
+.message-sender-area {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, rgba(244, 228, 188, 0.95) 0%, rgba(232, 213, 163, 0.9) 100%);
+  border-top: 1px solid rgba(201, 162, 39, 0.3);
+  position: relative;
+}
+
+#message-input {
+  flex-grow: 1;
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.9) 0%, rgba(244, 228, 188, 0.85) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  color: var(--ink-primary);
+  padding: 12px 15px;
+  border-radius: var(--border-radius-sm);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.4;
+  max-height: 50px;
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+}
+
+#message-input:focus {
+  outline: none;
+  border-color: var(--gold-accent);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.4);
+  max-height: 150px;
+}
+
+#message-input::placeholder {
+  color: var(--ink-muted);
+  opacity: 0.7;
+}
+
+/* ============================================================
+ * 输入框带下拉菜单
+ * ============================================================ */
+
+.input-with-dropdown {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.input-with-dropdown .input-field {
+  flex: 1;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+}
+
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: rgba(201, 162, 39, 0.1);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-left: none;
+  border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dropdown-trigger:hover {
+  background: rgba(201, 162, 39, 0.2);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--parchment-light);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-medium);
+  z-index: 100;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none;
+}
+
+.dropdown-menu.active {
+  display: block;
+}
+
+.dropdown-header {
+  padding: 8px 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(201, 162, 39, 0.08);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.1);
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background: rgba(201, 162, 39, 0.15);
+}
+
+.dropdown-item:not(:last-child) {
+  border-bottom: 1px solid rgba(201, 162, 39, 0.08);
+}
+
+.dropdown-item.fetch-models {
+  display: flex;
+  align-items: center;
+  color: var(--gold-accent);
+  font-weight: 500;
+}
+
+.dropdown-item.fetch-models:hover {
+  background: rgba(201, 162, 39, 0.2);
+}
+
+.dropdown-loading {
+  padding: 15px;
+  text-align: center;
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}
+
+.dropdown-loading span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-loading::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(201, 162, 39, 0.3);
+  border-top-color: var(--gold-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+.dropdown-error,
+.dropdown-empty {
+  padding: 12px 15px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+.dropdown-error {
+  color: var(--blood-red);
+}
+
+/* ============================================================
+ * 输入框带切换按钮
+ * ============================================================ */
+
+.input-with-toggle {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.input-with-toggle .input-field {
+  flex: 1;
+  padding-right: 45px;
+}
+
+.toggle-visibility {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--ink-muted);
+  transition: color var(--transition-fast);
+}
+
+.toggle-visibility:hover {
+  color: var(--ink-primary);
+}
+
+/* ============================================================
+ * 复选框
+ * ============================================================ */
+
+.config-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.75rem;
+}
+
+.config-item:last-child {
+  margin-bottom: 0;
+}
+
+.config-item input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold-accent);
+  cursor: pointer;
+}
+
+.config-item label {
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+  cursor: pointer;
+}
+
+.config-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 0.75rem;
+}
+
+.config-row label {
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+ * 提示词文本域
+ * ============================================================ */
+
+.prompt-textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.95) 0%, rgba(244, 228, 188, 0.9) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: var(--border-radius-sm);
+  color: var(--ink-primary);
+  transition: all var(--transition-fast);
+}
+
+.prompt-textarea:focus {
+  outline: none;
+  border-color: var(--gold-accent);
+  box-shadow:
+    0 0 0 3px rgba(201, 162, 39, 0.15),
+    inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.prompt-textarea.code-textarea {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre;
+  background: linear-gradient(135deg, rgba(44, 24, 16, 0.03) 0%, rgba(44, 24, 16, 0.06) 100%);
+}
+
+.code-textarea {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+/* ============================================================
+ * 用户世界信息编辑器
+ * ============================================================ */
+
+.user-world-textarea {
+  width: 100%;
+  min-height: 150px;
+  resize: vertical;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.98) 0%, rgba(244, 228, 188, 0.95) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: var(--border-radius-sm);
+  color: var(--ink-primary);
+  transition: all var(--transition-fast);
+}
+
+.user-world-textarea:focus {
+  outline: none;
+  border-color: var(--emerald);
+  box-shadow:
+    0 0 0 3px rgba(45, 90, 61, 0.15),
+    inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.user-world-textarea::placeholder {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+/* ============================================================
+ * 输入提示
+ * ============================================================ */
+
+.input-hint {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.label-icon {
+  margin-right: 5px;
+}
